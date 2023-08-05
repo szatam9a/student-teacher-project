@@ -26,20 +26,20 @@ public class UserService {
     }
     @PostConstruct
     void init(){
-        saveNewUser(new CreateUserDto("admin","admin","ROLE_ADMIN"));
+        saveNewUser(new CreateUserDto("admin","admin","smithy@admin.com","Smith","Tom"));
     }
 
     public UserDto saveNewUser(CreateUserDto createUserDto) throws UsernameIsTakenException {
         isUsernameAvailable(createUserDto.getUsername());
         User user = new User();
         user.setUsername(createUserDto.getUsername());
-        user.setRoles(createUserDto.getRoles());
+        user.setRoles("ROLE_USER");
         user.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
         userRepository.save(user);
         return mapper.toUserDto(user);
     }
 
-    public UserDto registering(UserRegistrationDto userRegistrationDto) {
+    public UserDto registering(CreateUserDto userRegistrationDto) {
         isUsernameAvailable(userRegistrationDto.getUsername());
         User userToRegistering = new User();
         userToRegistering.setUsername(userRegistrationDto.getUsername());
