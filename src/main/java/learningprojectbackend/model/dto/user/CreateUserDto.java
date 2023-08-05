@@ -1,5 +1,6 @@
 package learningprojectbackend.model.dto.user;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +14,10 @@ public class CreateUserDto {
     private String username;
     @NotBlank(message = "password cant be empty")
     private String password;
-    @NotBlank(message = "roles must be given options: ROLE_USER,ROLE_ADMIN")
-    private String roles;
+    @Email(message = "incorrect email address")
+    private String email;
+    @NotBlank(message = "first name cant be empty")
+    private String firstName;
+    @NotBlank(message = "last name cant be empty")
+    private String lastName;
 }
