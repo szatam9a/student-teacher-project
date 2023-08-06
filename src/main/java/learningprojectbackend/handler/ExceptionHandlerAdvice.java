@@ -1,7 +1,7 @@
 package learningprojectbackend.handler;
 
-import learningprojectbackend.expcetion.UserNotFoundException;
-import learningprojectbackend.expcetion.UsernameIsTakenException;
+import learningprojectbackend.exception.UserNotFoundException;
+import learningprojectbackend.exception.UsernameIsTakenException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -1,8 +1,8 @@
 package learningprojectbackend.service;
 
 import jakarta.annotation.PostConstruct;
-import learningprojectbackend.expcetion.UserNotFoundException;
-import learningprojectbackend.expcetion.UsernameIsTakenException;
+import learningprojectbackend.exception.UserNotFoundException;
+import learningprojectbackend.exception.UsernameIsTakenException;
 import learningprojectbackend.model.ModelMapper;
 import learningprojectbackend.repository.UserRepository;
 import learningprojectbackend.model.entity.User;

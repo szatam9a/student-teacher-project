@@ -2,7 +2,7 @@ package learningprojectbackend.controller;
 
 import jakarta.validation.Valid;
 
-import learningprojectbackend.expcetion.UsernameIsTakenException;
+import learningprojectbackend.exception.UsernameIsTakenException;
 import learningprojectbackend.model.dto.user.CreateUserDto;
 import learningprojectbackend.model.dto.user.UpdateUserPasswordDto;
 import learningprojectbackend.model.dto.user.UpdateUsernameDto;

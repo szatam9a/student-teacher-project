@@ -1,4 +1,4 @@
-package learningprojectbackend.expcetion;
+package learningprojectbackend.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
