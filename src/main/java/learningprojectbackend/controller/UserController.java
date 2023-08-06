@@ -27,7 +27,7 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto createNewUser(@RequestBody @Valid CreateUserDto createUserDto) throws UsernameIsTakenException {
-        return userService.saveNewUser(createUserDto);
+        return userService.registering(createUserDto);
     }
 
     @PatchMapping("/{userId}/username")
