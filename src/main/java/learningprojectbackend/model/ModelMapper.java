@@ -1,6 +1,7 @@
 package learningprojectbackend.model;
 
 
+import learningprojectbackend.model.dto.exercise.CreateExerciseDto;
 import learningprojectbackend.model.dto.exercise.ExerciseDto;
 import learningprojectbackend.model.dto.user.CreateUserDto;
 import learningprojectbackend.model.dto.user.UserDto;
@@ -22,4 +23,6 @@ public interface ModelMapper {
 
     ExerciseDto toExerciseDto(Exercise exercise);
     List<ExerciseDto> toExerciseDto(List<Exercise> exercises);
+
+    Exercise toExercise(CreateExerciseDto createExerciseDto);
 }

@@ -3,6 +3,7 @@ package learningprojectbackend.service;
 import learningprojectbackend.exception.ExerciseNotFoundException;
 import learningprojectbackend.model.ExerciseType;
 import learningprojectbackend.model.ModelMapper;
+import learningprojectbackend.model.dto.exercise.CreateExerciseDto;
 import learningprojectbackend.model.dto.exercise.ExerciseDto;
 import learningprojectbackend.model.entity.exercise.Exercise;
 import learningprojectbackend.model.entity.exercise.MatchPairExerciseAnswer;
@@ -36,6 +37,13 @@ public class ExerciseService {
     }
 
     public List<ExerciseDto> getAllExercise() {
-        return mapper.toExerciseDto(exerciseRepository.findAll());
+        return mapper.toExerciseDto(
+                exerciseRepository.findAll());
+    }
+
+    public ExerciseDto createExercise(CreateExerciseDto createExerciseDto) {
+        return mapper.toExerciseDto(
+                exerciseRepository.save(
+                        mapper.toExercise(createExerciseDto)));
     }
 }

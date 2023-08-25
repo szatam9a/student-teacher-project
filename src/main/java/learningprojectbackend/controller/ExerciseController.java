@@ -1,13 +1,12 @@
 package learningprojectbackend.controller;
 
+import learningprojectbackend.model.dto.exercise.CreateExerciseDto;
 import learningprojectbackend.model.dto.exercise.ExerciseDto;
 import learningprojectbackend.model.entity.exercise.Exercise;
 import learningprojectbackend.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,5 +23,9 @@ public class ExerciseController {
     @GetMapping("/{id}")
     public ExerciseDto getExerciseById(@Param("id") long id){
         return exerciseService.getExerciseById(id);
+    }
+    @PostMapping
+    public ExerciseDto createExercise(@RequestBody CreateExerciseDto createExerciseDto){
+        return exerciseService.createExercise(createExerciseDto);
     }
 }
