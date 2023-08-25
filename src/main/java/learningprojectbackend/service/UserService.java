@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,13 +25,16 @@ public class UserService {
     public UserDto findUserById(Long id) {
         return mapper.toUserDto(findUserIfPresent(id));
     }
-    @PostConstruct
-    void init(){
-        registering(new CreateUserDto("admin","admin","smithy@admin.com","Smith","Tom"));
-    }
+
+//    @PostConstruct
+//    void init() {
+//        registering(new CreateUserDto("admin", "admin", "smithy@admin.com", "Smith", "Tom"));
+//    }
+
     public UserDto registering(CreateUserDto createUserDto) throws UsernameIsTakenException {
         isUsernameAvailable(createUserDto.getUsername());
         User userToRegistering = mapper.toUser(createUserDto);
+        userToRegistering.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
         userToRegistering.setRoles("ROLE_USER");
         return mapper.toUserDto(userRepository.save(userToRegistering));
     }
@@ -62,5 +66,9 @@ public class UserService {
     private User findUserIfPresent(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    public List<UserDto> findAllUser() {
+        return mapper.toUserDto(userRepository.findAll());
     }
 }

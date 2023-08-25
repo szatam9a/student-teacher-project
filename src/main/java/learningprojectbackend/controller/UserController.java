@@ -12,8 +12,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("api/user")
+@RequestMapping("user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -22,6 +24,12 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public UserDto findUsersAllData(@PathVariable Long userId) {
         return userService.findUserById(userId);
+    }
+
+    @GetMapping()
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserDto> findAllUser(){
+        return userService.findAllUser();
     }
 
     @PostMapping
