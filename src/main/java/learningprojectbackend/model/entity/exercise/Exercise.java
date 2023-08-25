@@ -1,4 +1,4 @@
-package learningprojectbackend.model.entity.exercize;
+package learningprojectbackend.model.entity.exercise;
 
 import jakarta.persistence.*;
 import learningprojectbackend.model.ExerciseType;
