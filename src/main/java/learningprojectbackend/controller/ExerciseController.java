@@ -1,6 +1,7 @@
 package learningprojectbackend.controller;
 
-import learningprojectbackend.model.entity.exercize.Exercise;
+import learningprojectbackend.model.dto.exercise.ExerciseDto;
+import learningprojectbackend.model.entity.exercise.Exercise;
 import learningprojectbackend.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
@@ -17,11 +18,11 @@ public class ExerciseController {
     private final ExerciseService exerciseService;
 
     @GetMapping
-    public List<Exercise> getAllExercise(){
+    public List<ExerciseDto> getAllExercise(){
         return exerciseService.getAllExercise();
     }
     @GetMapping("/{id}")
-    public Exercise getExerciseById(@Param("id") long id){
+    public ExerciseDto getExerciseById(@Param("id") long id){
         return exerciseService.getExerciseById(id);
     }
 }

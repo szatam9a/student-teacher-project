@@ -2,8 +2,10 @@ package learningprojectbackend.service;
 
 import learningprojectbackend.exception.ExerciseNotFoundException;
 import learningprojectbackend.model.ExerciseType;
-import learningprojectbackend.model.entity.exercize.Exercise;
-import learningprojectbackend.model.entity.exercize.MatchPairExerciseAnswer;
+import learningprojectbackend.model.ModelMapper;
+import learningprojectbackend.model.dto.exercise.ExerciseDto;
+import learningprojectbackend.model.entity.exercise.Exercise;
+import learningprojectbackend.model.entity.exercise.MatchPairExerciseAnswer;
 import learningprojectbackend.repository.ExerciseRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +15,11 @@ import java.util.List;
 //@RequiredArgsConstructor
 public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
+    private final ModelMapper mapper;
 
-    public ExerciseService(ExerciseRepository exerciseRepository) {
+    public ExerciseService(ExerciseRepository exerciseRepository, ModelMapper mapper) {
         this.exerciseRepository = exerciseRepository;
+        this.mapper = mapper;
         Exercise exercise = new Exercise();
         exercise.setExerciseType(ExerciseType.match);
         exercise.setTitle("match");
@@ -26,12 +30,12 @@ public class ExerciseService {
         exerciseRepository.save(exercise);
     }
 
-    public Exercise getExerciseById(long id) {
-        return exerciseRepository.findById(id).orElseThrow(
-                () -> new ExerciseNotFoundException(id));
+    public ExerciseDto getExerciseById(long id) {
+        return mapper.toExerciseDto(exerciseRepository.findById(id).orElseThrow(
+                () -> new ExerciseNotFoundException(id)));
     }
 
-    public List<Exercise> getAllExercise() {
-        return exerciseRepository.findAll();
+    public List<ExerciseDto> getAllExercise() {
+        return mapper.toExerciseDto(exerciseRepository.findAll());
     }
 }
