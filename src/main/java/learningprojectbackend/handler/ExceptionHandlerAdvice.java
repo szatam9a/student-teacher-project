@@ -1,5 +1,6 @@
 package learningprojectbackend.handler;
 
+import learningprojectbackend.exception.ExerciseNotFoundException;
 import learningprojectbackend.exception.UserNotFoundException;
 import learningprojectbackend.exception.UsernameIsTakenException;
 import org.springframework.http.HttpStatus;
@@ -14,9 +15,9 @@ public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(UsernameIsTakenException.class)
     public ProblemDetail handleUsernameIsTakenException(UsernameIsTakenException e) {
-        ProblemDetail problemDetail = ProblemDetail
-                .forStatusAndDetail(HttpStatus.CONFLICT,
-                        String.format("This username is already in use: %s", e.getUsername()));
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.CONFLICT,
+                String.format("This username is already in use: %s", e.getUsername()));
         problemDetail.setTitle("Username is already taken");
         problemDetail.setType(URI.create("username-is-taken"));
         return problemDetail;
@@ -32,5 +33,13 @@ public class ExceptionHandlerAdvice {
         return problemDetail;
     }
 
-
+    @ExceptionHandler(ExerciseNotFoundException.class)
+    public ProblemDetail handleExerciseNotFoundException(ExerciseNotFoundException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.NOT_FOUND,
+                String.format("Exercise not found with id: %d", e.getId()));
+        problemDetail.setTitle("Exercise not found");
+        problemDetail.setType(URI.create("Exercise-not-found"));
+        return problemDetail;
+    }
 }
