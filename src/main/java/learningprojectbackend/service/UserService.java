@@ -26,10 +26,13 @@ public class UserService {
         return mapper.toUserDto(findUserIfPresent(id));
     }
 
-//    @PostConstruct
+    //    @PostConstruct
 //    void init() {
 //        registering(new CreateUserDto("admin", "admin", "smithy@admin.com", "Smith", "Tom"));
 //    }
+    public List<UserDto> findAllUser() {
+        return mapper.toUserDto(userRepository.findAll());
+    }
 
     public UserDto registering(CreateUserDto createUserDto) throws UsernameIsTakenException {
         isUsernameAvailable(createUserDto.getUsername());
@@ -52,10 +55,6 @@ public class UserService {
         user.setUsername(updateUsernameDto.getUsername());
     }
 
-    public void deleteUserById(Long id) {
-        userRepository.delete(findUserIfPresent(id));
-    }
-
     private void isUsernameAvailable(String username) throws UsernameIsTakenException {
         Optional<User> user = userRepository.findByUsernameIgnoreCase(username);
         if (user.isPresent()) {
@@ -68,7 +67,7 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
 
-    public List<UserDto> findAllUser() {
-        return mapper.toUserDto(userRepository.findAll());
+    public void deleteUserById(Long id) {
+        userRepository.delete(findUserIfPresent(id));
     }
 }
