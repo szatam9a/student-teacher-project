@@ -9,8 +9,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 @EnableWebSecurity
@@ -21,26 +26,17 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        Map<String, PasswordEncoder> encoders = new HashMap<>();
+        encoders.put("bcrypt", new BCryptPasswordEncoder());
+        return new DelegatingPasswordEncoder("bcrypt",encoders);
     }
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-//        return
-//                httpSecurity.csrf(AbstractHttpConfigurer::disable)
-//                        .authorizeHttpRequests(auth -> {
-//                            auth.requestMatchers("/").permitAll();
-//                            auth.requestMatchers("/user").hasRole("USER");
-//                            auth.requestMatchers("/admin").hasRole("ADMIN");
-//                            auth.anyRequest().authenticated();
-//                        })
-//                        .formLogin(Customizer.withDefaults())
-//                        .build();
         return httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/api/user/**").hasRole("ADMIN")
-                                .requestMatchers("/api/example/**").hasRole("USER")
-                                .requestMatchers("/api/registration").permitAll()
+                        auth.requestMatchers("/user/**").hasRole("USER")
+                                .requestMatchers("/registration").permitAll()
                                 .requestMatchers("/login", "/logout").permitAll()
                                 .anyRequest().authenticated()
                 )
