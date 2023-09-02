@@ -21,7 +21,7 @@ public class ExerciseController {
         return exerciseService.getAllExercise();
     }
     @GetMapping("/{id}")
-    public ExerciseDto getExerciseById(@Param("id") long id){
+    public ExerciseDto getExerciseById(@PathVariable("id") Long id){
         return exerciseService.getExerciseById(id);
     }
     @PostMapping

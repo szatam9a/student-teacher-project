@@ -31,8 +31,8 @@ public class ExerciseService {
         exerciseRepository.save(exercise);
     }
 
-    public ExerciseDto getExerciseById(long id) {
-        return mapper.toExerciseDto(exerciseRepository.findById(id).orElseThrow(
+    public ExerciseDto getExerciseById(Long id) {
+        ;return mapper.toExerciseDto(exerciseRepository.findById(id).orElseThrow(
                 () -> new ExerciseNotFoundException(id)));
     }
 
