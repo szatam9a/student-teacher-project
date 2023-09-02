@@ -26,10 +26,10 @@ public class UserService {
         return mapper.toUserDto(findUserIfPresent(id));
     }
 
-    //    @PostConstruct
-//    void init() {
-//        registering(new CreateUserDto("admin", "admin", "smithy@admin.com", "Smith", "Tom"));
-//    }
+        @PostConstruct
+    void init() {
+        registering(new CreateUserDto("admin", "admin", "smithy@admin.com", "Smith", "Tom"));
+    }
     public List<UserDto> findAllUser() {
         return mapper.toUserDto(userRepository.findAll());
     }

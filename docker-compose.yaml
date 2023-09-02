@@ -1,0 +1,29 @@
+version: '3'
+services:
+  mariadb:
+    image: mariadb
+#    networks:
+#      - mynetwork
+
+    container_name: my-mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: ROOT
+      MYSQL_DATABASE: seikai
+      MYSQL_USER: master
+      MYSQL_PASSWORD: master
+    ports:
+      - "3306:3306"
+
+  spring-app:
+#    networks:
+#      - mynetwork
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: seikai-backend
+    depends_on:
+      - mariadb
+    ports:
+      - "8080:8080"
+#networks:
+#  mynetwork:

@@ -1,4 +1,4 @@
-package learningprojectbackend.service;
+package learningprojectbackend.service.auth;
 
 import learningprojectbackend.config.SecurityUser;
 import learningprojectbackend.repository.UserRepository;
