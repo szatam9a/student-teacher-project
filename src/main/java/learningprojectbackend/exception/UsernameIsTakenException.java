@@ -7,6 +7,4 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UsernameIsTakenException extends RuntimeException {
     private final String username;
-
-
 }

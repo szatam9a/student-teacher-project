@@ -11,6 +11,8 @@ services:
       MYSQL_DATABASE: seikai
       MYSQL_USER: master
       MYSQL_PASSWORD: master
+    volumes:
+      - my-mariadb-data:/var/lib/mysql
     ports:
       - "3306:3306"
 
@@ -27,3 +29,5 @@ services:
       - "8080:8080"
 #networks:
 #  mynetwork:
+volumes:
+  my-mariadb-data:

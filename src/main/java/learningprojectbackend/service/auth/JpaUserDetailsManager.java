@@ -18,4 +18,11 @@ public class JpaUserDetailsManager implements UserDetailsService {
         return userRepository.findByUsernameIgnoreCase(username).map(SecurityUser::new)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
     }
+
+
+//      Preparations for authentication against email     @Override
+//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//        return userRepository.findByEmailIgnoreCase(email).map(SecurityUser::new)
+//                .orElseThrow(() -> new UsernameNotFoundException(email));
+
 }
