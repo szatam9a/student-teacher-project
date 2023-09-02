@@ -1,4 +1,4 @@
-package learningprojectbackend.model.entity;
+package learningprojectbackend.model.entity.user;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

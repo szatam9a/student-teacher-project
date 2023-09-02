@@ -1,11 +1,11 @@
 package learningprojectbackend.service;
 
 import learningprojectbackend.exception.ExerciseNotFoundException;
-import learningprojectbackend.model.ExerciseType;
 import learningprojectbackend.model.ModelMapper;
 import learningprojectbackend.model.dto.exercise.CreateExerciseDto;
 import learningprojectbackend.model.dto.exercise.ExerciseDto;
 import learningprojectbackend.model.entity.exercise.Exercise;
+import learningprojectbackend.model.entity.exercise.ExerciseType;
 import learningprojectbackend.model.entity.exercise.MatchPairExerciseAnswer;
 import learningprojectbackend.repository.ExerciseRepository;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,8 @@ public class ExerciseService {
     }
 
     public ExerciseDto getExerciseById(Long id) {
-        ;return mapper.toExerciseDto(exerciseRepository.findById(id).orElseThrow(
+        ;
+        return mapper.toExerciseDto(exerciseRepository.findById(id).orElseThrow(
                 () -> new ExerciseNotFoundException(id)));
     }
 

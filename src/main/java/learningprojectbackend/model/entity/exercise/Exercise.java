@@ -1,7 +1,6 @@
 package learningprojectbackend.model.entity.exercise;
 
 import jakarta.persistence.*;
-import learningprojectbackend.model.ExerciseType;
 import learningprojectbackend.model.entity.studyrial.Studyrial;
 import lombok.Getter;
 import lombok.Setter;

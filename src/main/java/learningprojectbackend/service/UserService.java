@@ -4,9 +4,12 @@ import jakarta.annotation.PostConstruct;
 import learningprojectbackend.exception.UserNotFoundException;
 import learningprojectbackend.exception.UsernameIsTakenException;
 import learningprojectbackend.model.ModelMapper;
+import learningprojectbackend.model.dto.user.CreateUserDto;
+import learningprojectbackend.model.dto.user.UpdateUserPasswordDto;
+import learningprojectbackend.model.dto.user.UpdateUsernameDto;
+import learningprojectbackend.model.dto.user.UserDto;
+import learningprojectbackend.model.entity.user.User;
 import learningprojectbackend.repository.UserRepository;
-import learningprojectbackend.model.entity.User;
-import learningprojectbackend.model.dto.user.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,10 +29,11 @@ public class UserService {
         return mapper.toUserDto(findUserIfPresent(id));
     }
 
-        @PostConstruct
+    @PostConstruct
     void init() {
         registering(new CreateUserDto("admin", "admin", "smithy@admin.com", "Smith", "Tom"));
     }
+
     public List<UserDto> findAllUser() {
         return mapper.toUserDto(userRepository.findAll());
     }

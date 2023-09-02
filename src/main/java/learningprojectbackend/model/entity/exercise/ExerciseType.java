@@ -1,10 +1,10 @@
-package learningprojectbackend.model;
+package learningprojectbackend.model.entity.exercise;
 
 public enum ExerciseType {
     find("FIND"),
     fill("FILL"),
     match("MATCH"),
-    order ("ORDER");
+    order("ORDER");
     private String value;
 
     ExerciseType(String value) {
