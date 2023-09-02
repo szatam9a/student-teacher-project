@@ -1,6 +1,6 @@
 package learningprojectbackend.config;
 
-import learningprojectbackend.model.entity.User;
+import learningprojectbackend.model.entity.user.User;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,6 +30,10 @@ public class SecurityUser implements UserDetails {
     @Override
     public String getUsername() {
         return user.getUsername();
+    }
+
+    public Long getUserId() {
+        return user.getId();
     }
 
     @Override

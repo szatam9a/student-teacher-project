@@ -1,6 +1,7 @@
 package learningprojectbackend.service.auth;
 
 
+import learningprojectbackend.config.SecurityUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
@@ -21,8 +22,8 @@ public class TokenService {
     }
 
     public String generateToken(Authentication authentication) {
+        SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
         Instant now = Instant.now();
-
         String scope = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(" "));
@@ -32,8 +33,8 @@ public class TokenService {
                 .expiresAt(now.plus(1, ChronoUnit.HOURS))
                 .subject(authentication.getName())
                 .claim("scope", scope)
+                .claim("userId", securityUser.getUserId())
                 .build();
         return this.jwtEncoder.encode(JwtEncoderParameters.from(claimsSet)).getTokenValue();
-
     }
 }
