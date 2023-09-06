@@ -18,6 +18,11 @@ public class Flashcard {
     private String flashCardFront;
     private String flashCardBack;
     @ManyToMany
+    @JoinTable(
+            name = "flashcard_tags",
+            joinColumns = @JoinColumn(name = "flashcard_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
     private List<Tag> tagList;
     @ManyToMany(mappedBy = "flashCardList")
     private List<Studyrial> studyrialList;

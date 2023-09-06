@@ -1,6 +1,6 @@
 package learningprojectbackend.model.dto.exercise;
 
-import learningprojectbackend.model.entity.exercise.ExerciseType;
+import learningprojectbackend.model.entity.exercise.Answer.ExerciseType;
 import lombok.Getter;
 import lombok.Setter;
 

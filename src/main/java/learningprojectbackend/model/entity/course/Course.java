@@ -18,5 +18,10 @@ public class Course {
     @OneToMany(mappedBy = "course")
     private List<Lesson> lessonList;
     @ManyToMany
-    private List<Tag> taglist;
+    @JoinTable(
+            name = "course_tags",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private List<Tag> tagList;
 }

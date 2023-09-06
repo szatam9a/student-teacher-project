@@ -1,7 +1,10 @@
 package learningprojectbackend.model.entity.exercise;
 
 import jakarta.persistence.*;
+import learningprojectbackend.model.entity.exercise.Answer.Answer;
+import learningprojectbackend.model.entity.exercise.Answer.ExerciseType;
 import learningprojectbackend.model.entity.studyrial.Studyrial;
+import learningprojectbackend.model.entity.tag.Tag;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +25,13 @@ public class Exercise {
     private List<Answer> answerList = new LinkedList<>();
     @ManyToMany(mappedBy = "exerciseList")
     private List<Studyrial> studyrialList;
+    @ManyToMany
+    @JoinTable(
+            name = "exercise_tags",
+            joinColumns = @JoinColumn(name = "exercise_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private List<Tag> tagList;
 
     public void addAnswer(Answer answer) {
         answerList.add(answer);

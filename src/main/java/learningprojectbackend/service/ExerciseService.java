@@ -4,9 +4,9 @@ import learningprojectbackend.exception.ExerciseNotFoundException;
 import learningprojectbackend.model.ModelMapper;
 import learningprojectbackend.model.dto.exercise.CreateExerciseDto;
 import learningprojectbackend.model.dto.exercise.ExerciseDto;
+import learningprojectbackend.model.entity.exercise.Answer.ExerciseType;
+import learningprojectbackend.model.entity.exercise.Answer.MatchPairExerciseAnswer;
 import learningprojectbackend.model.entity.exercise.Exercise;
-import learningprojectbackend.model.entity.exercise.ExerciseType;
-import learningprojectbackend.model.entity.exercise.MatchPairExerciseAnswer;
 import learningprojectbackend.repository.ExerciseRepository;
 import org.springframework.stereotype.Service;
 

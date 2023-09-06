@@ -17,6 +17,11 @@ public class Lesson {
     private Long id;
     private String title;
     @ManyToMany
+    @JoinTable(
+            name = "lesson_tags",
+            joinColumns = @JoinColumn(name = "lesson_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
     private List<Tag> tagList;
     @OneToMany(mappedBy = "lesson")
     private List<Studyrial> studyrialList;

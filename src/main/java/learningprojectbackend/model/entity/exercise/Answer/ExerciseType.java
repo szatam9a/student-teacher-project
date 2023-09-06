@@ -1,4 +1,4 @@
-package learningprojectbackend.model.entity.exercise;
+package learningprojectbackend.model.entity.exercise.Answer;
 
 public enum ExerciseType {
     find("FIND"),
