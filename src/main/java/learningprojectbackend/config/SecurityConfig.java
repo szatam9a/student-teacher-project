@@ -26,6 +26,7 @@ import java.util.Map;
 public class SecurityConfig {
 
     private final JpaUserDetailsManager jpaUserDetailsManager;
+    private final CorsConfig corsConfig;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -60,6 +61,8 @@ public class SecurityConfig {
                                 .permitAll()
                                 .anyRequest().authenticated()
                 )
+//                .cors().configurationSource(corsConfiguration)
+                .cors((cors) -> cors.configurationSource(corsConfig))
                 .userDetailsService(jpaUserDetailsManager)
                 .oauth2ResourceServer((oath2) -> oath2.jwt(Customizer.withDefaults()))
                 .build();
