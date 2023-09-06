@@ -12,7 +12,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,7 +31,7 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         Map<String, PasswordEncoder> encoders = new HashMap<>();
         encoders.put("bcrypt", new BCryptPasswordEncoder());
-        return new DelegatingPasswordEncoder("bcrypt",encoders);
+        return new DelegatingPasswordEncoder("bcrypt", encoders);
     }
 
     @Bean
@@ -55,12 +54,14 @@ public class SecurityConfig {
 
                         auth
                                 .requestMatchers("/auth/sign-in", "/logout").permitAll()
-                                .requestMatchers("/api/auth/sign-in").permitAll()
+                                .requestMatchers("exercise").hasAuthority("SCOPE_ROLE_USER")
                                 .requestMatchers("/user/**").hasAuthority("SCOPE_ROLE_USER")
+                                .requestMatchers("/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs/**")
+                                .permitAll()
                                 .anyRequest().authenticated()
                 )
                 .userDetailsService(jpaUserDetailsManager)
-                .oauth2ResourceServer((oath2)-> oath2.jwt(Customizer.withDefaults()))
+                .oauth2ResourceServer((oath2) -> oath2.jwt(Customizer.withDefaults()))
                 .build();
     }
 }
