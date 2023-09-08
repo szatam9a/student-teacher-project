@@ -3,6 +3,7 @@ package learningprojectbackend.model.entity.course;
 import jakarta.persistence.*;
 import learningprojectbackend.model.entity.studyrial.Studyrial;
 import learningprojectbackend.model.entity.tag.Tag;
+import learningprojectbackend.model.entity.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,4 +28,6 @@ public class Lesson {
     private List<Studyrial> studyrialList;
     @ManyToOne
     private Course course;
+    @ManyToOne
+    private User user;
 }
