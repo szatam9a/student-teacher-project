@@ -5,6 +5,7 @@ import learningprojectbackend.model.entity.course.Lesson;
 import learningprojectbackend.model.entity.exercise.Exercise;
 import learningprojectbackend.model.entity.flashcard.Flashcard;
 import learningprojectbackend.model.entity.tag.Tag;
+import learningprojectbackend.model.entity.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,4 +42,6 @@ public class Studyrial {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private List<Tag> tagList;
+    @ManyToOne
+    private User user;
 }

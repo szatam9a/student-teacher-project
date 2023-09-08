@@ -4,7 +4,6 @@ import learningprojectbackend.model.dto.exercise.CreateExerciseDto;
 import learningprojectbackend.model.dto.exercise.ExerciseDto;
 import learningprojectbackend.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,8 +25,7 @@ public class ExerciseController {
     }
 
     @PostMapping
-    public ExerciseDto createExercise(@RequestBody CreateExerciseDto createExerciseDto, JwtAuthenticationToken authenticationToken) {
-        Long authorizedUserId = ((Long) authenticationToken.getTokenAttributes().get("userId"));
+    public ExerciseDto createExercise(@RequestBody CreateExerciseDto createExerciseDto) {
         return exerciseService.createExercise(createExerciseDto);
     }
 }

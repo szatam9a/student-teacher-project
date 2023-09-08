@@ -5,6 +5,7 @@ import learningprojectbackend.model.entity.exercise.Answer.Answer;
 import learningprojectbackend.model.entity.exercise.Answer.ExerciseType;
 import learningprojectbackend.model.entity.studyrial.Studyrial;
 import learningprojectbackend.model.entity.tag.Tag;
+import learningprojectbackend.model.entity.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,6 +33,8 @@ public class Exercise {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private List<Tag> tagList;
+    @ManyToOne
+    private User user;
 
     public void addAnswer(Answer answer) {
         answerList.add(answer);

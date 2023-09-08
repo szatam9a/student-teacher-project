@@ -1,7 +1,6 @@
 package learningprojectbackend.model.dto;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public class LoginRequest {

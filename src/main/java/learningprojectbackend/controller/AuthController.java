@@ -1,8 +1,8 @@
 package learningprojectbackend.controller;
 
 import learningprojectbackend.model.dto.LoginRequest;
+import learningprojectbackend.model.dto.user.UserToken;
 import learningprojectbackend.service.auth.AuthService;
-import learningprojectbackend.service.auth.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final TokenService tokenService;
     private final AuthService authService;
+
     @PreAuthorize("permitAll()")
     @PostMapping("/sign-in")
-    public String loginRequest(@RequestBody LoginRequest loginRequest){
-            return tokenService.generateToken(authService.authenticateLoginRequest(loginRequest));
+    public UserToken loginRequest(@RequestBody LoginRequest loginRequest) {
+        return authService.getTokenAndUser(loginRequest);
     }
 }

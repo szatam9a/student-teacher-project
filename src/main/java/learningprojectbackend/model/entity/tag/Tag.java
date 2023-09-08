@@ -5,6 +5,7 @@ import learningprojectbackend.model.entity.course.Course;
 import learningprojectbackend.model.entity.course.Lesson;
 import learningprojectbackend.model.entity.exercise.Exercise;
 import learningprojectbackend.model.entity.studyrial.Studyrial;
+import learningprojectbackend.model.entity.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,4 +29,6 @@ public class Tag {
     private List<Course> courseList;
     @ManyToMany(mappedBy = "tagList")
     private List<Lesson> lessonList;
+    @ManyToOne
+    private User user;
 }

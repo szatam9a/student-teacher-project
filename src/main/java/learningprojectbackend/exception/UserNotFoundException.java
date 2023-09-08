@@ -1,10 +1,17 @@
 package learningprojectbackend.exception;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
 public class UserNotFoundException extends RuntimeException {
-    private final Long id;
+    private Long id;
+    private String email;
+
+    public UserNotFoundException(String email) {
+        this.email = email;
+    }
+
+    public UserNotFoundException(Long id) {
+        this.id = id;
+    }
 }

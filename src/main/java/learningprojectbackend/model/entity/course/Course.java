@@ -2,6 +2,7 @@ package learningprojectbackend.model.entity.course;
 
 import jakarta.persistence.*;
 import learningprojectbackend.model.entity.tag.Tag;
+import learningprojectbackend.model.entity.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,4 +25,6 @@ public class Course {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private List<Tag> tagList;
+    @ManyToOne
+    private User user;
 }

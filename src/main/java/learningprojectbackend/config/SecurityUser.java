@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class SecurityUser implements UserDetails {
+
     private User user;
 
     @Override

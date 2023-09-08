@@ -27,7 +27,7 @@ public class ExceptionHandlerAdvice {
     public ProblemDetail handleUserNotFoundException(UserNotFoundException e) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.NOT_FOUND,
-                String.format("User not found with id: %d", e.getId()));
+                String.format("User not found with id: %d or email: %s", e.getId(), e.getEmail()));
         problemDetail.setTitle("User not found");
         problemDetail.setType(URI.create("user-not-found"));
         return problemDetail;

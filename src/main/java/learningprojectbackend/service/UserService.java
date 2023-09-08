@@ -25,13 +25,21 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper mapper;
 
+    @PostConstruct
+    void init() {
+        registering(new CreateUserDto("admin", "admin", "smithy@admin.com", "Smith", "Tom"));
+    }
+
     public UserDto findUserById(Long id) {
         return mapper.toUserDto(findUserIfPresent(id));
     }
 
-    @PostConstruct
-    void init() {
-        registering(new CreateUserDto("admin", "admin", "smithy@admin.com", "Smith", "Tom"));
+    public UserDto findUserByEmailAddress(String email) {
+        return mapper.toUserDto((userRepository.findByEmailIgnoreCase(email)).orElseThrow(() -> new UserNotFoundException(email)));
+    }
+
+    public User findUserToAddExercise(Long id) {
+        return getUser(userRepository.findByIdWithExercise(id), id);
     }
 
     public List<UserDto> findAllUser() {
@@ -59,6 +67,10 @@ public class UserService {
         user.setUsername(updateUsernameDto.getUsername());
     }
 
+    public void deleteUserById(Long id) {
+        userRepository.delete(findUserIfPresent(id));
+    }
+
     private void isUsernameAvailable(String username) throws UsernameIsTakenException {
         Optional<User> user = userRepository.findByUsernameIgnoreCase(username);
         if (user.isPresent()) {
@@ -66,12 +78,12 @@ public class UserService {
         }
     }
 
+    private User getUser(Optional<User> user, Long id) {
+        return user.orElseThrow(() -> new UserNotFoundException(id));
+    }
+
     private User findUserIfPresent(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
-    }
-
-    public void deleteUserById(Long id) {
-        userRepository.delete(findUserIfPresent(id));
     }
 }
