@@ -1,6 +1,6 @@
 package learningprojectbackend.config;
 
-import learningprojectbackend.model.entity.user.User;
+import learningprojectbackend.studies.model.entity.user.User;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

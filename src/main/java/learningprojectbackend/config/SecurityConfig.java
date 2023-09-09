@@ -1,6 +1,6 @@
 package learningprojectbackend.config;
 
-import learningprojectbackend.service.auth.JpaUserDetailsManager;
+import learningprojectbackend.auth.service.JpaUserDetailsManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

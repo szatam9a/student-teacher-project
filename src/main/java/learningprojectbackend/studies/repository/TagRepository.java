@@ -1,0 +1,7 @@
+package learningprojectbackend.studies.repository;
+
+import learningprojectbackend.studies.model.entity.tag.Tag;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TagRepository extends JpaRepository<Tag, Long> {
+}
