@@ -20,14 +20,14 @@ public class AuthService {
     public UserToken getTokenAndUser(LoginRequest loginRequest) {
         UserToken userToken = new UserToken();
         userToken.setToken(tokenService.generateToken(authenticateLoginRequest(loginRequest)));
-        userToken.setUserDto(userService.findUserByEmailAddress(loginRequest.getUsername()));
+        userToken.setUser(userService.findUserByEmailAddress(loginRequest.getEmailAddress()));
         return userToken;
     }
 
     public Authentication authenticateLoginRequest(LoginRequest loginRequest) {
         Authentication authentication;
         authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
+                new UsernamePasswordAuthenticationToken(loginRequest.getEmailAddress(), loginRequest.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return authentication;

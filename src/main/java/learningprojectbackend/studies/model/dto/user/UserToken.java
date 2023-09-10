@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class UserToken {
     private String token;
-    private UserDto userDto;
+    private UserDto user;
 }
