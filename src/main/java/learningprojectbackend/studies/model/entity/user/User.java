@@ -5,7 +5,7 @@ import learningprojectbackend.studies.model.entity.course.Course;
 import learningprojectbackend.studies.model.entity.course.Lesson;
 import learningprojectbackend.studies.model.entity.exercise.Exercise;
 import learningprojectbackend.studies.model.entity.flashcard.Flashcard;
-import learningprojectbackend.studies.model.entity.studyrial.Studyrial;
+import learningprojectbackend.studies.model.entity.studerial.Studerial;
 import learningprojectbackend.studies.model.entity.tag.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,7 +37,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Lesson> lessonList;
     @OneToMany(mappedBy = "user")
-    private List<Studyrial> studyrialList;
+    private List<Studerial> studerialList;
     @OneToMany(mappedBy = "user")
     private List<Flashcard> flashcardList;
     @OneToMany(mappedBy = "user")

@@ -1,7 +1,7 @@
 package learningprojectbackend.studies.model.entity.course;
 
 import jakarta.persistence.*;
-import learningprojectbackend.studies.model.entity.studyrial.Studyrial;
+import learningprojectbackend.studies.model.entity.studerial.Studerial;
 import learningprojectbackend.studies.model.entity.tag.Tag;
 import learningprojectbackend.studies.model.entity.user.User;
 import lombok.Getter;
@@ -25,7 +25,7 @@ public class Lesson {
     )
     private List<Tag> tagList;
     @OneToMany(mappedBy = "lesson")
-    private List<Studyrial> studyrialList;
+    private List<Studerial> studerialList;
     @ManyToOne
     private Course course;
     @ManyToOne

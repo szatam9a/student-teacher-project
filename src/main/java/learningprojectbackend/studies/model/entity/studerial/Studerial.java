@@ -1,4 +1,4 @@
-package learningprojectbackend.studies.model.entity.studyrial;
+package learningprojectbackend.studies.model.entity.studerial;
 
 import jakarta.persistence.*;
 import learningprojectbackend.studies.model.entity.course.Lesson;
@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Studyrial {
+public class Studerial {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

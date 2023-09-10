@@ -1,9 +1,7 @@
 package learningprojectbackend.studies.model.entity.exercise;
 
 import jakarta.persistence.*;
-import learningprojectbackend.studies.model.entity.exercise.Answer.Answer;
-import learningprojectbackend.studies.model.entity.exercise.Answer.ExerciseType;
-import learningprojectbackend.studies.model.entity.studyrial.Studyrial;
+import learningprojectbackend.studies.model.entity.studerial.Studerial;
 import learningprojectbackend.studies.model.entity.tag.Tag;
 import learningprojectbackend.studies.model.entity.user.User;
 import lombok.Getter;
@@ -25,7 +23,7 @@ public class Exercise {
     @OneToMany(mappedBy = "exercise", cascade = CascadeType.ALL)
     private List<Answer> answerList = new LinkedList<>();
     @ManyToMany(mappedBy = "exerciseList")
-    private List<Studyrial> studyrialList;
+    private List<Studerial> studerialList;
     @ManyToMany
     @JoinTable(
             name = "exercise_tags",

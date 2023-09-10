@@ -6,7 +6,7 @@ import learningprojectbackend.studies.model.dto.exercise.CreateExerciseDto;
 import learningprojectbackend.studies.model.dto.exercise.ExerciseDto;
 import learningprojectbackend.studies.model.dto.user.CreateUserDto;
 import learningprojectbackend.studies.model.dto.user.UserDto;
-import learningprojectbackend.studies.model.entity.exercise.Answer.Answer;
+import learningprojectbackend.studies.model.entity.exercise.Answer;
 import learningprojectbackend.studies.model.entity.exercise.Exercise;
 import learningprojectbackend.studies.model.entity.user.User;
 import org.mapstruct.Mapper;

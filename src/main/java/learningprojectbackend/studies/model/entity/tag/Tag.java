@@ -1,10 +1,10 @@
 package learningprojectbackend.studies.model.entity.tag;
 
 import jakarta.persistence.*;
-import learningprojectbackend.studies.model.entity.course.Lesson;
 import learningprojectbackend.studies.model.entity.course.Course;
+import learningprojectbackend.studies.model.entity.course.Lesson;
 import learningprojectbackend.studies.model.entity.exercise.Exercise;
-import learningprojectbackend.studies.model.entity.studyrial.Studyrial;
+import learningprojectbackend.studies.model.entity.studerial.Studerial;
 import learningprojectbackend.studies.model.entity.user.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +22,7 @@ public class Tag {
     private String textColor;
     private String name;
     @ManyToMany(mappedBy = "tagList")
-    private List<Studyrial> studyrialList;
+    private List<Studerial> studerialList;
     @ManyToMany(mappedBy = "tagList")
     private List<Exercise> exerciseList;
     @ManyToMany(mappedBy = "tagList")

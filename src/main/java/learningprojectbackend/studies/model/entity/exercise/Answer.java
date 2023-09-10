@@ -1,7 +1,6 @@
-package learningprojectbackend.studies.model.entity.exercise.Answer;
+package learningprojectbackend.studies.model.entity.exercise;
 
 import jakarta.persistence.*;
-import learningprojectbackend.studies.model.entity.exercise.Exercise;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +18,7 @@ public class Answer {
     private Exercise exercise;
     private String sentenceBeginning;
     private String sentenceEnding;
+    @ElementCollection(targetClass = String.class)
     private List<String> correctAnswers;
     private int position;
     private String answer;

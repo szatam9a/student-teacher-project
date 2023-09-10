@@ -7,9 +7,9 @@ import learningprojectbackend.exception.ExerciseNotFoundException;
 import learningprojectbackend.studies.model.ModelMapper;
 import learningprojectbackend.studies.model.dto.exercise.CreateExerciseDto;
 import learningprojectbackend.studies.model.dto.exercise.ExerciseDto;
-import learningprojectbackend.studies.model.entity.exercise.Answer.Answer;
-import learningprojectbackend.studies.model.entity.exercise.Answer.ExerciseType;
+import learningprojectbackend.studies.model.entity.exercise.Answer;
 import learningprojectbackend.studies.model.entity.exercise.Exercise;
+import learningprojectbackend.studies.model.entity.exercise.ExerciseType;
 import learningprojectbackend.studies.model.entity.user.User;
 import learningprojectbackend.studies.repository.ExerciseRepository;
 import learningprojectbackend.studies.repository.UserRepository;
@@ -34,6 +34,7 @@ public class ExerciseService {
     }
 
     public List<ExerciseDto> getAllExercise() {
+//        return mapper.toExerciseDto(exerciseRepository.findAllByUserId(jwtTokenDetailsService.getUserIdFromJWTToken()));
         return mapper.toExerciseDto(userService.getUserById(jwtTokenDetailsService.getUserIdFromJWTToken()).getExerciseList());
     }
 

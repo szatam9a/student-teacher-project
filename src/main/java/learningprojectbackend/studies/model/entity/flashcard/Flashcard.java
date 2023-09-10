@@ -1,7 +1,7 @@
 package learningprojectbackend.studies.model.entity.flashcard;
 
 import jakarta.persistence.*;
-import learningprojectbackend.studies.model.entity.studyrial.Studyrial;
+import learningprojectbackend.studies.model.entity.studerial.Studerial;
 import learningprojectbackend.studies.model.entity.tag.Tag;
 import learningprojectbackend.studies.model.entity.user.User;
 import lombok.Getter;
@@ -26,7 +26,7 @@ public class Flashcard {
     )
     private List<Tag> tagList;
     @ManyToMany(mappedBy = "flashCardList")
-    private List<Studyrial> studyrialList;
+    private List<Studerial> studerialList;
     @ManyToOne
     private User user;
 }
