@@ -1,6 +1,6 @@
 package learningprojectbackend.auth.service;
 
-import learningprojectbackend.config.SecurityUser;
+import learningprojectbackend.securityconfig.SecurityUser;
 import learningprojectbackend.studies.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

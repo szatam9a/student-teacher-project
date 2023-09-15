@@ -4,15 +4,15 @@ import jakarta.annotation.PostConstruct;
 import learningprojectbackend.auth.exception.NoAuthorizationToAccessResourcesException;
 import learningprojectbackend.auth.service.JwtTokenDetailsService;
 import learningprojectbackend.exception.ExerciseNotFoundException;
+import learningprojectbackend.studies.controller.dto.exercise.CreateExerciseDto;
+import learningprojectbackend.studies.controller.dto.exercise.ExerciseDto;
 import learningprojectbackend.studies.model.ModelMapper;
-import learningprojectbackend.studies.model.dto.exercise.CreateExerciseDto;
-import learningprojectbackend.studies.model.dto.exercise.ExerciseDto;
-import learningprojectbackend.studies.model.entity.exercise.Answer;
-import learningprojectbackend.studies.model.entity.exercise.Exercise;
-import learningprojectbackend.studies.model.entity.exercise.ExerciseType;
-import learningprojectbackend.studies.model.entity.user.User;
 import learningprojectbackend.studies.repository.ExerciseRepository;
 import learningprojectbackend.studies.repository.UserRepository;
+import learningprojectbackend.studies.service.entity.exercise.Answer;
+import learningprojectbackend.studies.service.entity.exercise.Exercise;
+import learningprojectbackend.studies.service.entity.exercise.ExerciseType;
+import learningprojectbackend.studies.service.entity.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +34,6 @@ public class ExerciseService {
     }
 
     public List<ExerciseDto> getAllExercise() {
-//        return mapper.toExerciseDto(exerciseRepository.findAllByUserId(jwtTokenDetailsService.getUserIdFromJWTToken()));
         return mapper.toExerciseDto(userService.getUserById(jwtTokenDetailsService.getUserIdFromJWTToken()).getExerciseList());
     }
 
@@ -48,7 +47,7 @@ public class ExerciseService {
 
     private Exercise retrieveExercise(Long id) {
         Exercise exerciseToRetrieve = findExerciseById(id);
-        if (userService.getUserById(jwtTokenDetailsService.getUserIdFromJWTToken()).getId() == exerciseToRetrieve.getUser().getId()) {
+        if (userService.getUserById(jwtTokenDetailsService.getUserIdFromJWTToken()).getId().equals(exerciseToRetrieve.getUser().getId())) {
             return exerciseToRetrieve;
         } else {
             throw new NoAuthorizationToAccessResourcesException("No Authorization to retrieve exercise with id: " + exerciseToRetrieve.getId());

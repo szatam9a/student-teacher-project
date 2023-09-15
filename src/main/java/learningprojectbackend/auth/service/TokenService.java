@@ -1,7 +1,7 @@
 package learningprojectbackend.auth.service;
 
 
-import learningprojectbackend.config.SecurityUser;
+import learningprojectbackend.securityconfig.SecurityUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;

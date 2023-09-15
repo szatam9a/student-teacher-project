@@ -1,12 +1,10 @@
 package learningprojectbackend.studies.controller;
 
 import jakarta.validation.Valid;
-
 import learningprojectbackend.exception.UsernameIsTakenException;
-import learningprojectbackend.studies.model.dto.user.CreateUserDto;
-import learningprojectbackend.studies.model.dto.user.UpdateUserPasswordDto;
-import learningprojectbackend.studies.model.dto.user.UpdateUsernameDto;
-import learningprojectbackend.studies.model.dto.user.UserDto;
+import learningprojectbackend.studies.controller.dto.user.RegistrationRequest;
+import learningprojectbackend.studies.controller.dto.user.UpdateUserPasswordDto;
+import learningprojectbackend.studies.controller.dto.user.UserDto;
 import learningprojectbackend.studies.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,17 +32,10 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDto createNewUser(@RequestBody @Valid CreateUserDto createUserDto) throws UsernameIsTakenException {
-        return userService.registering(createUserDto);
+    public UserDto createNewUser(@RequestBody @Valid RegistrationRequest registrationRequest) throws UsernameIsTakenException {
+        return userService.registering(registrationRequest);
     }
-
-    @PatchMapping("/{userId}/username")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-
-    public void updateUsername(@RequestBody @Valid UpdateUsernameDto updateUsernameDto, @PathVariable Long userId) {
-        userService.updateUsername(userId, updateUsernameDto);
-    }
-
+    
     @PatchMapping("/{userId}/password")
     @ResponseStatus(HttpStatus.ACCEPTED)
 

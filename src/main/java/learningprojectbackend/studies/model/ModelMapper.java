@@ -1,14 +1,17 @@
 package learningprojectbackend.studies.model;
 
 
-import learningprojectbackend.studies.model.dto.exercise.AnswerDto;
-import learningprojectbackend.studies.model.dto.exercise.CreateExerciseDto;
-import learningprojectbackend.studies.model.dto.exercise.ExerciseDto;
-import learningprojectbackend.studies.model.dto.user.CreateUserDto;
-import learningprojectbackend.studies.model.dto.user.UserDto;
-import learningprojectbackend.studies.model.entity.exercise.Answer;
-import learningprojectbackend.studies.model.entity.exercise.Exercise;
-import learningprojectbackend.studies.model.entity.user.User;
+import learningprojectbackend.studies.controller.dto.exercise.AnswerDto;
+import learningprojectbackend.studies.controller.dto.exercise.CreateExerciseDto;
+import learningprojectbackend.studies.controller.dto.exercise.ExerciseDto;
+import learningprojectbackend.studies.controller.dto.tag.CreateTagDto;
+import learningprojectbackend.studies.controller.dto.tag.TagDto;
+import learningprojectbackend.studies.controller.dto.user.RegistrationRequest;
+import learningprojectbackend.studies.controller.dto.user.UserDto;
+import learningprojectbackend.studies.service.entity.exercise.Answer;
+import learningprojectbackend.studies.service.entity.exercise.Exercise;
+import learningprojectbackend.studies.service.entity.tag.Tag;
+import learningprojectbackend.studies.service.entity.user.User;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -17,11 +20,17 @@ import java.util.List;
 public interface ModelMapper {
 
 
+    User toUser(RegistrationRequest registrationRequest);
+
     UserDto toUserDto(User user);
 
     List<UserDto> toUserDto(List<User> user);
 
-    User toUser(CreateUserDto createUserDto);
+    Tag toTag(CreateTagDto createTagDto);
+
+    TagDto toTagDto(Tag tag);
+
+    List<TagDto> toTagDto(List<Tag> tag);
 
     ExerciseDto toExerciseDto(Exercise exercise);
 

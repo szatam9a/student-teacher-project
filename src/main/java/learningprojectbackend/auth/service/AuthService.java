@@ -1,7 +1,7 @@
 package learningprojectbackend.auth.service;
 
 import learningprojectbackend.auth.model.dto.LoginRequest;
-import learningprojectbackend.studies.model.dto.user.UserToken;
+import learningprojectbackend.studies.controller.dto.user.UserToken;
 import learningprojectbackend.studies.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

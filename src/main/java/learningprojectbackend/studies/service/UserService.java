@@ -3,13 +3,12 @@ package learningprojectbackend.studies.service;
 import jakarta.annotation.PostConstruct;
 import learningprojectbackend.exception.UserNotFoundException;
 import learningprojectbackend.exception.UsernameIsTakenException;
+import learningprojectbackend.studies.controller.dto.user.RegistrationRequest;
+import learningprojectbackend.studies.controller.dto.user.UpdateUserPasswordDto;
+import learningprojectbackend.studies.controller.dto.user.UserDto;
 import learningprojectbackend.studies.model.ModelMapper;
-import learningprojectbackend.studies.model.dto.user.CreateUserDto;
-import learningprojectbackend.studies.model.dto.user.UpdateUserPasswordDto;
-import learningprojectbackend.studies.model.dto.user.UpdateUsernameDto;
-import learningprojectbackend.studies.model.dto.user.UserDto;
-import learningprojectbackend.studies.model.entity.user.User;
 import learningprojectbackend.studies.repository.UserRepository;
+import learningprojectbackend.studies.service.entity.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,13 @@ public class UserService {
 
     @PostConstruct
     void init() {
-        registering(new CreateUserDto("admin", "admin", "smithy@admin.com", "Smith", "Tom"));
+        RegistrationRequest registrationRequest = new RegistrationRequest();
+        registrationRequest.setNickname("admin");
+        registrationRequest.setPassword("admin");
+        registrationRequest.setEmail("smithy@admin.com");
+        registrationRequest.setFirstName("Tom");
+        registrationRequest.setLastName("Smith");
+        registering(registrationRequest);
     }
 
     public UserDto findUserById(Long id) {
@@ -50,10 +55,10 @@ public class UserService {
         return mapper.toUserDto(userRepository.findAll());
     }
 
-    public UserDto registering(CreateUserDto createUserDto) throws UsernameIsTakenException {
-        isUsernameAvailable(createUserDto.getUsername());
-        User userToRegistering = mapper.toUser(createUserDto);
-        userToRegistering.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
+    public UserDto registering(RegistrationRequest registrationRequest) throws UsernameIsTakenException {
+        isEmailAvailable(registrationRequest.getNickname());
+        User userToRegistering = mapper.toUser(registrationRequest);
+        userToRegistering.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
         userToRegistering.setRoles("ROLE_USER");
         return mapper.toUserDto(userRepository.save(userToRegistering));
     }
@@ -64,21 +69,14 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(updateUserPasswordDto.getPassword()));
     }
 
-    @Transactional
-    public void updateUsername(Long id, UpdateUsernameDto updateUsernameDto) {
-        User user = findUserIfPresent(id);
-        isUsernameAvailable(updateUsernameDto.getUsername());
-        user.setUsername(updateUsernameDto.getUsername());
-    }
-
     public void deleteUserById(Long id) {
         userRepository.delete(findUserIfPresent(id));
     }
 
-    private void isUsernameAvailable(String username) throws UsernameIsTakenException {
-        Optional<User> user = userRepository.findByUsernameIgnoreCase(username);
+    private void isEmailAvailable(String email) throws UsernameIsTakenException {
+        Optional<User> user = userRepository.findByEmailIgnoreCase(email);
         if (user.isPresent()) {
-            throw new UsernameIsTakenException(username);
+            throw new UsernameIsTakenException(email);
         }
     }
 
@@ -89,5 +87,9 @@ public class UserService {
     private User findUserIfPresent(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    public User getUserByIdWithTags(Long userIdFromJWTToken) {
+        return userRepository.findByIdWithTag(userIdFromJWTToken);
     }
 }
