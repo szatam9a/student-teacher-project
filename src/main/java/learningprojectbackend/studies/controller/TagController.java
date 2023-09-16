@@ -35,7 +35,7 @@ public class TagController {
         return tagService.createNewTag(createTagRequest);
     }
 
-    @PutMapping("/tag/{tagId}")
+    @PutMapping("/{tagId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateTag(@RequestBody UpdateTagRequest updateTagRequest, @PathVariable Long tagId) {
         tagService.updateTagById(updateTagRequest, tagId);
