@@ -2,9 +2,9 @@ package learningprojectbackend.studies.service;
 
 import learningprojectbackend.auth.exception.NoAuthorizationToAccessResourcesException;
 import learningprojectbackend.auth.service.JwtTokenDetailsService;
-import learningprojectbackend.studies.controller.dto.tag.CreateTagDto;
-import learningprojectbackend.studies.controller.dto.tag.TagDto;
-import learningprojectbackend.studies.controller.dto.tag.UpdateTag;
+import learningprojectbackend.studies.controller.tag.CreateTagDto;
+import learningprojectbackend.studies.controller.tag.TagDto;
+import learningprojectbackend.studies.controller.tag.UpdateTag;
 import learningprojectbackend.studies.exception.TagNotFoundException;
 import learningprojectbackend.studies.model.ModelMapper;
 import learningprojectbackend.studies.repository.TagRepository;

@@ -1,14 +1,10 @@
-package learningprojectbackend.studies.controller.dto.exercise;
+package learningprojectbackend.studies.controller.exercise;
 
 import learningprojectbackend.studies.service.entity.exercise.ExerciseType;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
-public class ExerciseDto {
-    private long id;
+public class CreateExerciseDto {
     private String title;
     private ExerciseType exerciseType;
-
 }

@@ -1,4 +1,4 @@
-package learningprojectbackend.studies.controller.dto.studerial;
+package learningprojectbackend.studies.controller.studerial;
 
 import lombok.Getter;
 

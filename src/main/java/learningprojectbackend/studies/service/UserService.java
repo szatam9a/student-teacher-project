@@ -1,11 +1,11 @@
 package learningprojectbackend.studies.service;
 
 import jakarta.annotation.PostConstruct;
+import learningprojectbackend.exception.EmailAddressIsTakenException;
 import learningprojectbackend.exception.UserNotFoundException;
-import learningprojectbackend.exception.UsernameIsTakenException;
-import learningprojectbackend.studies.controller.dto.user.RegistrationRequest;
-import learningprojectbackend.studies.controller.dto.user.UpdateUserPasswordDto;
-import learningprojectbackend.studies.controller.dto.user.UserDto;
+import learningprojectbackend.studies.controller.user.RegistrationRequest;
+import learningprojectbackend.studies.controller.user.UpdateUserPasswordDto;
+import learningprojectbackend.studies.controller.user.UserDto;
 import learningprojectbackend.studies.model.ModelMapper;
 import learningprojectbackend.studies.repository.UserRepository;
 import learningprojectbackend.studies.service.entity.user.User;
@@ -55,7 +55,7 @@ public class UserService {
         return mapper.toUserDto(userRepository.findAll());
     }
 
-    public UserDto registering(RegistrationRequest registrationRequest) throws UsernameIsTakenException {
+    public UserDto registering(RegistrationRequest registrationRequest) throws EmailAddressIsTakenException {
         isEmailAvailable(registrationRequest.getNickname());
         User userToRegistering = mapper.toUser(registrationRequest);
         userToRegistering.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
@@ -73,10 +73,10 @@ public class UserService {
         userRepository.delete(findUserIfPresent(id));
     }
 
-    private void isEmailAvailable(String email) throws UsernameIsTakenException {
+    private void isEmailAvailable(String email) throws EmailAddressIsTakenException {
         Optional<User> user = userRepository.findByEmailIgnoreCase(email);
         if (user.isPresent()) {
-            throw new UsernameIsTakenException(email);
+            throw new EmailAddressIsTakenException(email);
         }
     }
 

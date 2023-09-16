@@ -1,8 +1,8 @@
 package learningprojectbackend.studies.controller;
 
-import learningprojectbackend.studies.controller.dto.tag.CreateTagDto;
-import learningprojectbackend.studies.controller.dto.tag.TagDto;
-import learningprojectbackend.studies.controller.dto.tag.UpdateTag;
+import learningprojectbackend.studies.controller.tag.CreateTagDto;
+import learningprojectbackend.studies.controller.tag.TagDto;
+import learningprojectbackend.studies.controller.tag.UpdateTag;
 import learningprojectbackend.studies.service.TagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

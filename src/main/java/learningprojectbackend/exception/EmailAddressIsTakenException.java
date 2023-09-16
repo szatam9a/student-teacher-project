@@ -5,6 +5,6 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class UsernameIsTakenException extends RuntimeException {
-    private final String username;
+public class EmailAddressIsTakenException extends RuntimeException {
+    private final String emailAddress;
 }

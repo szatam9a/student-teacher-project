@@ -1,4 +1,4 @@
-package learningprojectbackend.studies.controller.dto.user;
+package learningprojectbackend.studies.controller.user;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package learningprojectbackend.studies.controller.dto.course;
+package learningprojectbackend.studies.controller.course;
 
 import lombok.Getter;
 

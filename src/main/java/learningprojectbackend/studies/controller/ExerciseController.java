@@ -1,7 +1,7 @@
 package learningprojectbackend.studies.controller;
 
-import learningprojectbackend.studies.controller.dto.exercise.CreateExerciseDto;
-import learningprojectbackend.studies.controller.dto.exercise.ExerciseDto;
+import learningprojectbackend.studies.controller.exercise.CreateExerciseDto;
+import learningprojectbackend.studies.controller.exercise.ExerciseDto;
 import learningprojectbackend.studies.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

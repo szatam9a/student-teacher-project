@@ -1,13 +1,13 @@
 package learningprojectbackend.studies.model;
 
 
-import learningprojectbackend.studies.controller.dto.exercise.AnswerDto;
-import learningprojectbackend.studies.controller.dto.exercise.CreateExerciseDto;
-import learningprojectbackend.studies.controller.dto.exercise.ExerciseDto;
-import learningprojectbackend.studies.controller.dto.tag.CreateTagDto;
-import learningprojectbackend.studies.controller.dto.tag.TagDto;
-import learningprojectbackend.studies.controller.dto.user.RegistrationRequest;
-import learningprojectbackend.studies.controller.dto.user.UserDto;
+import learningprojectbackend.studies.controller.exercise.AnswerDto;
+import learningprojectbackend.studies.controller.exercise.CreateExerciseDto;
+import learningprojectbackend.studies.controller.exercise.ExerciseDto;
+import learningprojectbackend.studies.controller.tag.CreateTagDto;
+import learningprojectbackend.studies.controller.tag.TagDto;
+import learningprojectbackend.studies.controller.user.RegistrationRequest;
+import learningprojectbackend.studies.controller.user.UserDto;
 import learningprojectbackend.studies.service.entity.exercise.Answer;
 import learningprojectbackend.studies.service.entity.exercise.Exercise;
 import learningprojectbackend.studies.service.entity.tag.Tag;
