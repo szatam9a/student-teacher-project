@@ -1,8 +1,8 @@
 package learningprojectbackend.studies.controller;
 
 import jakarta.validation.Valid;
-import learningprojectbackend.studies.controller.dto.user.RegistrationRequest;
-import learningprojectbackend.studies.controller.dto.user.UserDto;
+import learningprojectbackend.studies.controller.user.RegistrationRequest;
+import learningprojectbackend.studies.controller.user.UserDto;
 import learningprojectbackend.studies.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

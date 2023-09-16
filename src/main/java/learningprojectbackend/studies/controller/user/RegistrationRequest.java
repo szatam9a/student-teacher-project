@@ -1,4 +1,4 @@
-package learningprojectbackend.studies.controller.dto.user;
+package learningprojectbackend.studies.controller.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -1,7 +1,7 @@
 package learningprojectbackend.auth.service;
 
 import learningprojectbackend.auth.model.dto.LoginRequest;
-import learningprojectbackend.studies.controller.dto.user.UserToken;
+import learningprojectbackend.studies.controller.user.UserToken;
 import learningprojectbackend.studies.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,14 +20,14 @@ public class AuthService {
     public UserToken getTokenAndUser(LoginRequest loginRequest) {
         UserToken userToken = new UserToken();
         userToken.setToken(tokenService.generateToken(authenticateLoginRequest(loginRequest)));
-        userToken.setUser(userService.findUserByEmailAddress(loginRequest.getEmailAddress()));
+        userToken.setUser(userService.findUserByEmailAddress(loginRequest.getEmail()));
         return userToken;
     }
 
     public Authentication authenticateLoginRequest(LoginRequest loginRequest) {
         Authentication authentication;
         authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getEmailAddress(), loginRequest.getPassword())
+                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return authentication;

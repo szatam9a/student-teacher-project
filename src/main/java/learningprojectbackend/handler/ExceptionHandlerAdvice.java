@@ -1,8 +1,8 @@
 package learningprojectbackend.handler;
 
+import learningprojectbackend.exception.EmailAddressIsTakenException;
 import learningprojectbackend.exception.ExerciseNotFoundException;
 import learningprojectbackend.exception.UserNotFoundException;
-import learningprojectbackend.exception.UsernameIsTakenException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,11 +13,11 @@ import java.net.URI;
 @RestControllerAdvice
 public class ExceptionHandlerAdvice {
 
-    @ExceptionHandler(UsernameIsTakenException.class)
-    public ProblemDetail handleUsernameIsTakenException(UsernameIsTakenException e) {
+    @ExceptionHandler(EmailAddressIsTakenException.class)
+    public ProblemDetail handleUsernameIsTakenException(EmailAddressIsTakenException e) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.CONFLICT,
-                String.format("This username is already in use: %s", e.getUsername()));
+                String.format("This username is already in use: %s", e.getEmailAddress()));
         problemDetail.setTitle("Username is already taken");
         problemDetail.setType(URI.create("username-is-taken"));
         return problemDetail;
