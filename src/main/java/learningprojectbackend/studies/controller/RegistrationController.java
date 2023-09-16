@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("registration")
+@RequestMapping("/register")
 @RequiredArgsConstructor
 public class RegistrationController {
     private final UserService userService;
