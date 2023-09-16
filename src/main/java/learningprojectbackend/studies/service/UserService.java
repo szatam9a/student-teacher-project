@@ -4,7 +4,7 @@ import jakarta.annotation.PostConstruct;
 import learningprojectbackend.exception.EmailAddressIsTakenException;
 import learningprojectbackend.exception.UserNotFoundException;
 import learningprojectbackend.studies.controller.user.RegistrationRequest;
-import learningprojectbackend.studies.controller.user.UpdateUserPasswordDto;
+import learningprojectbackend.studies.controller.user.UpdateUserPasswordRequest;
 import learningprojectbackend.studies.controller.user.UserDto;
 import learningprojectbackend.studies.model.ModelMapper;
 import learningprojectbackend.studies.repository.UserRepository;
@@ -64,9 +64,9 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUserPassword(Long id, UpdateUserPasswordDto updateUserPasswordDto) {
+    public void updateUserPassword(Long id, UpdateUserPasswordRequest updateUserPasswordRequest) {
         User user = findUserIfPresent(id);
-        user.setPassword(passwordEncoder.encode(updateUserPasswordDto.getPassword()));
+        user.setPassword(passwordEncoder.encode(updateUserPasswordRequest.getPassword()));
     }
 
     public void deleteUserById(Long id) {

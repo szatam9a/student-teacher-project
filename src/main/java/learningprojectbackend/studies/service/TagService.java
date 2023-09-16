@@ -2,9 +2,9 @@ package learningprojectbackend.studies.service;
 
 import learningprojectbackend.auth.exception.NoAuthorizationToAccessResourcesException;
 import learningprojectbackend.auth.service.JwtTokenDetailsService;
-import learningprojectbackend.studies.controller.tag.CreateTagDto;
+import learningprojectbackend.studies.controller.tag.CreateTagRequest;
 import learningprojectbackend.studies.controller.tag.TagDto;
-import learningprojectbackend.studies.controller.tag.UpdateTag;
+import learningprojectbackend.studies.controller.tag.UpdateTagRequest;
 import learningprojectbackend.studies.exception.TagNotFoundException;
 import learningprojectbackend.studies.model.ModelMapper;
 import learningprojectbackend.studies.repository.TagRepository;
@@ -53,11 +53,11 @@ public class TagService {
     }
 
     @Transactional
-    public void updateTagById(UpdateTag updateTag, Long tagId) {
+    public void updateTagById(UpdateTagRequest updateTagRequest, Long tagId) {
         Tag tag = isTheUserTheOwner(tagId);
-        tag.setName(updateTag.getName());
-        tag.setBackgroundColor(updateTag.getBackgroundColor());
-        tag.setTextColor(updateTag.getTextColor());
+        tag.setName(updateTagRequest.getName());
+        tag.setBackgroundColor(updateTagRequest.getBackgroundColor());
+        tag.setTextColor(updateTagRequest.getTextColor());
     }
 
     private User getTheUser() {
@@ -65,9 +65,9 @@ public class TagService {
     }
 
     @Transactional
-    public TagDto createNewTag(CreateTagDto createTagDto) {
+    public TagDto createNewTag(CreateTagRequest createTagRequest) {
         User user = getTheUser();
-        Tag tagToSave = mapper.toTag(createTagDto);
+        Tag tagToSave = mapper.toTag(createTagRequest);
         user.addTag(tagToSave);
         return mapper.toTagDto(tagRepository.save(tagToSave));
     }

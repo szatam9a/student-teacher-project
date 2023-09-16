@@ -1,8 +1,8 @@
 package learningprojectbackend.studies.controller;
 
-import learningprojectbackend.studies.controller.tag.CreateTagDto;
+import learningprojectbackend.studies.controller.tag.CreateTagRequest;
 import learningprojectbackend.studies.controller.tag.TagDto;
-import learningprojectbackend.studies.controller.tag.UpdateTag;
+import learningprojectbackend.studies.controller.tag.UpdateTagRequest;
 import learningprojectbackend.studies.service.TagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -31,14 +31,14 @@ public class TagController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TagDto createNewTag(@RequestBody CreateTagDto createTagDto) {
-        return tagService.createNewTag(createTagDto);
+    public TagDto createNewTag(@RequestBody CreateTagRequest createTagRequest) {
+        return tagService.createNewTag(createTagRequest);
     }
 
     @PutMapping("/tag/{tagId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateTag(@RequestBody UpdateTag updateTag, @PathVariable Long tagId) {
-        tagService.updateTagById(updateTag, tagId);
+    public void updateTag(@RequestBody UpdateTagRequest updateTagRequest, @PathVariable Long tagId) {
+        tagService.updateTagById(updateTagRequest, tagId);
     }
 
     @DeleteMapping("/{tagId}")

@@ -4,7 +4,7 @@ import jakarta.annotation.PostConstruct;
 import learningprojectbackend.auth.exception.NoAuthorizationToAccessResourcesException;
 import learningprojectbackend.auth.service.JwtTokenDetailsService;
 import learningprojectbackend.exception.ExerciseNotFoundException;
-import learningprojectbackend.studies.controller.exercise.CreateExerciseDto;
+import learningprojectbackend.studies.controller.exercise.CreateExerciseRequest;
 import learningprojectbackend.studies.controller.exercise.ExerciseDto;
 import learningprojectbackend.studies.model.ModelMapper;
 import learningprojectbackend.studies.repository.ExerciseRepository;
@@ -38,9 +38,9 @@ public class ExerciseService {
     }
 
     @Transactional
-    public ExerciseDto createExercise(CreateExerciseDto createExerciseDto) {
+    public ExerciseDto createExercise(CreateExerciseRequest createExerciseRequest) {
         User owner = userService.findUserToAddExercise(jwtTokenDetailsService.getUserIdFromJWTToken());
-        Exercise toSave = exerciseRepository.save(mapper.toExercise(createExerciseDto));
+        Exercise toSave = exerciseRepository.save(mapper.toExercise(createExerciseRequest));
         owner.addExercise(toSave);
         return mapper.toExerciseDto(toSave);
     }

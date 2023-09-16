@@ -56,7 +56,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth ->
 
                         auth
-                                .requestMatchers("/auth/sign-in", "/logout").permitAll()
+                                .requestMatchers("/sign-in", "/register", "/logout").permitAll()
                                 .requestMatchers("/exercise/**").hasAuthority(USER)
                                 .requestMatchers("/tag/**").hasAuthority(USER)
                                 .requestMatchers("/user/**").hasAuthority(USER)

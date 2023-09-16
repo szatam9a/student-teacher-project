@@ -3,7 +3,7 @@ package learningprojectbackend.studies.controller;
 import jakarta.validation.Valid;
 import learningprojectbackend.exception.EmailAddressIsTakenException;
 import learningprojectbackend.studies.controller.user.RegistrationRequest;
-import learningprojectbackend.studies.controller.user.UpdateUserPasswordDto;
+import learningprojectbackend.studies.controller.user.UpdateUserPasswordRequest;
 import learningprojectbackend.studies.controller.user.UserDto;
 import learningprojectbackend.studies.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -38,8 +38,8 @@ public class UserController {
 
     @PatchMapping("/{userId}/password")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void updateUserPassword(@RequestBody @Valid UpdateUserPasswordDto updateUserPasswordDto, @PathVariable Long userId) {
-        userService.updateUserPassword(userId, updateUserPasswordDto);
+    public void updateUserPassword(@RequestBody @Valid UpdateUserPasswordRequest updateUserPasswordRequest, @PathVariable Long userId) {
+        userService.updateUserPassword(userId, updateUserPasswordRequest);
     }
 
     @DeleteMapping("/{userId}")

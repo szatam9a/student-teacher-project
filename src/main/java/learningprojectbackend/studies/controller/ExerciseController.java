@@ -1,6 +1,6 @@
 package learningprojectbackend.studies.controller;
 
-import learningprojectbackend.studies.controller.exercise.CreateExerciseDto;
+import learningprojectbackend.studies.controller.exercise.CreateExerciseRequest;
 import learningprojectbackend.studies.controller.exercise.ExerciseDto;
 import learningprojectbackend.studies.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class ExerciseController {
     }
 
     @PostMapping
-    public ExerciseDto createExercise(@RequestBody CreateExerciseDto createExerciseDto) {
-        return exerciseService.createExercise(createExerciseDto);
+    public ExerciseDto createExercise(@RequestBody CreateExerciseRequest createExerciseRequest) {
+        return exerciseService.createExercise(createExerciseRequest);
     }
 }

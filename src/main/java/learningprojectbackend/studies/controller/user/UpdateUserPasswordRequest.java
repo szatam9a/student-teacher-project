@@ -3,9 +3,8 @@ package learningprojectbackend.studies.controller.user;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
-
 @Getter
-public class UpdateNickname {
+public class UpdateUserPasswordRequest {
     @NotBlank
-    private String nickname;
+    private String password;
 }

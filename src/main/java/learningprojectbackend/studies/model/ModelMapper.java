@@ -2,9 +2,9 @@ package learningprojectbackend.studies.model;
 
 
 import learningprojectbackend.studies.controller.exercise.AnswerDto;
-import learningprojectbackend.studies.controller.exercise.CreateExerciseDto;
+import learningprojectbackend.studies.controller.exercise.CreateExerciseRequest;
 import learningprojectbackend.studies.controller.exercise.ExerciseDto;
-import learningprojectbackend.studies.controller.tag.CreateTagDto;
+import learningprojectbackend.studies.controller.tag.CreateTagRequest;
 import learningprojectbackend.studies.controller.tag.TagDto;
 import learningprojectbackend.studies.controller.user.RegistrationRequest;
 import learningprojectbackend.studies.controller.user.UserDto;
@@ -26,7 +26,7 @@ public interface ModelMapper {
 
     List<UserDto> toUserDto(List<User> user);
 
-    Tag toTag(CreateTagDto createTagDto);
+    Tag toTag(CreateTagRequest createTagRequest);
 
     TagDto toTagDto(Tag tag);
 
@@ -36,7 +36,7 @@ public interface ModelMapper {
 
     List<ExerciseDto> toExerciseDto(List<Exercise> exercises);
 
-    Exercise toExercise(CreateExerciseDto createExerciseDto);
+    Exercise toExercise(CreateExerciseRequest createExerciseRequest);
 
     AnswerDto toAnswerDto(Answer answer);
 
