@@ -1,8 +1,8 @@
 package learningprojectbackend.studies.service;
 
 import jakarta.annotation.PostConstruct;
-import learningprojectbackend.exception.EmailAddressIsTakenException;
-import learningprojectbackend.exception.UserNotFoundException;
+import learningprojectbackend.auth.exception.EmailAddressIsTakenException;
+import learningprojectbackend.auth.exception.UserNotFoundException;
 import learningprojectbackend.studies.controller.user.RegistrationRequest;
 import learningprojectbackend.studies.controller.user.UpdateUserPasswordRequest;
 import learningprojectbackend.studies.controller.user.UserDto;
@@ -32,7 +32,7 @@ public class UserService {
         registrationRequest.setEmail("smithy@admin.com");
         registrationRequest.setFirstName("Tom");
         registrationRequest.setLastName("Smith");
-        registering(registrationRequest);
+        register(registrationRequest);
     }
 
     public UserDto findUserById(Long id) {
@@ -55,7 +55,7 @@ public class UserService {
         return mapper.toUserDto(userRepository.findAll());
     }
 
-    public UserDto registering(RegistrationRequest registrationRequest) throws EmailAddressIsTakenException {
+    public UserDto register(RegistrationRequest registrationRequest) throws EmailAddressIsTakenException {
         isEmailAvailable(registrationRequest.getNickname());
         User userToRegistering = mapper.toUser(registrationRequest);
         userToRegistering.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
