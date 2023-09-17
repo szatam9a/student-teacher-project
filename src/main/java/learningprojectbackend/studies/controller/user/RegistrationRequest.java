@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RegistrationRequest {
-    @NotBlank(message = "username cant be empty")
+    @NotBlank(message = "nickname cant be empty")
     private String nickname;
     @NotBlank(message = "password cant be empty")
     private String password;

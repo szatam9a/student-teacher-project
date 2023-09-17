@@ -6,6 +6,6 @@ import lombok.Getter;
 
 @Getter
 public class UpdateNicknameRequest {
-    @NotBlank
+    @NotBlank(message = "nickname cant be empty")
     private String nickname;
 }

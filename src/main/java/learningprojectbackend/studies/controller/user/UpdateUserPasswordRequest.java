@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @Getter
 public class UpdateUserPasswordRequest {
-    @NotBlank
+    @NotBlank(message = "new password cant be empty")
     private String password;
 }

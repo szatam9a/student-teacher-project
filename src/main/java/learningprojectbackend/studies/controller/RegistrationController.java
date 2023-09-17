@@ -17,6 +17,6 @@ public class RegistrationController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto registeringNewUser(@RequestBody @Valid RegistrationRequest userRegistrationDto) {
-        return this.userService.registering(userRegistrationDto);
+        return this.userService.register(userRegistrationDto);
     }
 }

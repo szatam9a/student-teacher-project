@@ -1,7 +1,7 @@
 package learningprojectbackend.studies.controller;
 
 import jakarta.validation.Valid;
-import learningprojectbackend.exception.EmailAddressIsTakenException;
+import learningprojectbackend.auth.exception.EmailAddressIsTakenException;
 import learningprojectbackend.studies.controller.user.RegistrationRequest;
 import learningprojectbackend.studies.controller.user.UpdateUserPasswordRequest;
 import learningprojectbackend.studies.controller.user.UserDto;
@@ -33,7 +33,7 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto createNewUser(@RequestBody @Valid RegistrationRequest registrationRequest) throws EmailAddressIsTakenException {
-        return userService.registering(registrationRequest);
+        return userService.register(registrationRequest);
     }
 
     @PatchMapping("/{userId}/password")

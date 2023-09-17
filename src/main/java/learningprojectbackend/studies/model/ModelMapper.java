@@ -32,11 +32,11 @@ public interface ModelMapper {
 
     List<TagDto> toTagDto(List<Tag> tag);
 
+    Exercise toExercise(CreateExerciseRequest createExerciseRequest);
+
     ExerciseDto toExerciseDto(Exercise exercise);
 
     List<ExerciseDto> toExerciseDto(List<Exercise> exercises);
-
-    Exercise toExercise(CreateExerciseRequest createExerciseRequest);
 
     AnswerDto toAnswerDto(Answer answer);
 
