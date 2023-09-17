@@ -10,13 +10,24 @@ import java.net.URI;
 
 @RestControllerAdvice
 public class AuthExceptionHandler {
-    @ExceptionHandler(NoAuthorizationToAccessResourcesException.class)
-    public ProblemDetail handleNoAuthorizationToAccessResource(NoAuthorizationToAccessResourcesException e) {
+
+    @ExceptionHandler(EmailAddressIsTakenException.class)
+    public ProblemDetail handleUsernameIsTakenException(EmailAddressIsTakenException e) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                HttpStatus.FORBIDDEN,
-                String.format(e.getMessage()));
-        problemDetail.setTitle("no authority");
-        problemDetail.setType(URI.create("no-authority"));
+                HttpStatus.CONFLICT,
+                String.format("This username is already in use: %s", e.getEmailAddress()));
+        problemDetail.setTitle("Username is already taken");
+        problemDetail.setType(URI.create("username-is-taken"));
+        return problemDetail;
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ProblemDetail handleUserNotFoundException(UserNotFoundException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.NOT_FOUND,
+                String.format("User not found with id: %d or email: %s", e.getId(), e.getEmail()));
+        problemDetail.setTitle("User not found");
+        problemDetail.setType(URI.create("user-not-found"));
         return problemDetail;
     }
 
@@ -27,6 +38,16 @@ public class AuthExceptionHandler {
                 String.format(e.getMessage()));
         problemDetail.setTitle("Bad credentials");
         problemDetail.setType(URI.create("bad-credentials"));
+        return problemDetail;
+    }
+
+    @ExceptionHandler(NoAuthorizationToAccessResourcesException.class)
+    public ProblemDetail handleNoAuthorizationToAccessResource(NoAuthorizationToAccessResourcesException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.FORBIDDEN,
+                String.format(e.getMessage()));
+        problemDetail.setTitle("no authority");
+        problemDetail.setType(URI.create("no-authority"));
         return problemDetail;
     }
 }

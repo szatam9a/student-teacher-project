@@ -1,4 +1,4 @@
-package learningprojectbackend.exception;
+package learningprojectbackend.auth.exception;
 
 import lombok.Getter;
 
