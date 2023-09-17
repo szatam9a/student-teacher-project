@@ -24,51 +24,53 @@ public class TagService {
     private final TagRepository tagRepository;
     private final ModelMapper mapper;
 
+    public TagDto findTagById(Long tagId) {
+        return mapper.toTagDto(authenticateUserTag(getTagById(tagId)));
+    }
+
     public List<TagDto> findAllTagOfUser() {
         return mapper.toTagDto(
                 tagRepository.findAllByUserId(jwtTokenDetailsService.getUserIdFromJWTToken())
         );
     }
 
-    public TagDto findTagById(Long tagId) {
-        return mapper.toTagDto(isTheUserTheOwner(tagId));
+    @Transactional
+    public TagDto createNewTag(CreateTagRequest createTagRequest) {
+        User user = getOwnerUser();
+        Tag tagToSave = mapper.toTag(createTagRequest);
+        user.addTag(tagToSave);
+        return mapper.toTagDto(tagRepository.save(tagToSave));
+    }
+
+    @Transactional
+    public void updateTagById(UpdateTagRequest updateTagRequest, Long tagId) {
+        Tag tag = authenticateUserTag(getTagById(tagId));
+        tag.setName(updateTagRequest.getName());
+        tag.setBackgroundColor(updateTagRequest.getBackgroundColor());
+        tag.setTextColor(updateTagRequest.getTextColor());
+    }
+
+    public void deleteTagById(Long tagId) {
+        tagRepository.delete(authenticateUserTag(getTagById(tagId)));
     }
 
     private Tag getTagById(Long tagId) {
         return tagRepository.findById(tagId).orElseThrow(() -> new TagNotFoundException(tagId));
     }
 
-    private Tag isTheUserTheOwner(Long tagId) {
-        Long userId = jwtTokenDetailsService.getUserIdFromJWTToken();
-        Tag tag = getTagById(tagId);
-        if (userId.equals(tag.getUser().getId())) {
-            return tag;
-        } else {
-            throw new NoAuthorizationToAccessResourcesException("No Authorization to retrieve tag with id: " + tagId);
-        }
-    }
-
-    public void deleteTagById(Long tagId) {
-        tagRepository.delete(isTheUserTheOwner(tagId));
-    }
-
-    @Transactional
-    public void updateTagById(UpdateTagRequest updateTagRequest, Long tagId) {
-        Tag tag = isTheUserTheOwner(tagId);
-        tag.setName(updateTagRequest.getName());
-        tag.setBackgroundColor(updateTagRequest.getBackgroundColor());
-        tag.setTextColor(updateTagRequest.getTextColor());
-    }
-
-    private User getTheUser() {
+    private User getOwnerUser() {
         return userService.getUserByIdWithTags(jwtTokenDetailsService.getUserIdFromJWTToken());
     }
 
-    @Transactional
-    public TagDto createNewTag(CreateTagRequest createTagRequest) {
-        User user = getTheUser();
-        Tag tagToSave = mapper.toTag(createTagRequest);
-        user.addTag(tagToSave);
-        return mapper.toTagDto(tagRepository.save(tagToSave));
+    private Tag authenticateUserTag(Tag tag) {
+        if (isUserAuthorized(tag)) {
+            return tag;
+        } else {
+            throw new NoAuthorizationToAccessResourcesException("No Authorization to retrieve tag with id: " + tag.getId());
+        }
+    }
+
+    private boolean isUserAuthorized(Tag tag) {
+        return (getOwnerUser().getId().equals(tag.getUser().getId()));
     }
 }
