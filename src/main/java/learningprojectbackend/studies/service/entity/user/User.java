@@ -8,14 +8,17 @@ import learningprojectbackend.studies.service.entity.flashcard.Flashcard;
 import learningprojectbackend.studies.service.entity.studerial.Studerial;
 import learningprojectbackend.studies.service.entity.tag.Tag;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -29,6 +32,9 @@ public class User {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+    private LocalDate dateOfBirth;
     private String roles;
     @OneToMany(mappedBy = "user")
     private List<Course> courseList;

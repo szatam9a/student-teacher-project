@@ -56,7 +56,7 @@ public class UserService {
     }
 
     public UserDto register(RegistrationRequest registrationRequest) throws EmailAddressIsTakenException {
-        isEmailAvailable(registrationRequest.getNickname());
+        isEmailAvailable(registrationRequest.getEmail());
         User userToRegistering = mapper.toUser(registrationRequest);
         userToRegistering.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
         userToRegistering.setRoles("ROLE_USER");
