@@ -8,15 +8,17 @@ import learningprojectbackend.studies.service.entity.flashcard.Flashcard;
 import learningprojectbackend.studies.service.entity.studerial.Studerial;
 import learningprojectbackend.studies.service.entity.tag.Tag;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {

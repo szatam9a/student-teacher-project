@@ -12,12 +12,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import java.io.IOException;
-
 public class GenderValidateDeserializer extends JsonDeserializer<Gender> {
+
     @SneakyThrows
     @Override
-    public Gender deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+    public Gender deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) {
         String value = jsonParser.getValueAsString();
         for (Gender gender : (Gender.values())) {
             if (gender.getValue().equals(value)) {
