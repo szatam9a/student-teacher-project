@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -29,6 +30,9 @@ public class User {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+    private LocalDate dateOfBirth;
     private String roles;
     @OneToMany(mappedBy = "user")
     private List<Course> courseList;
