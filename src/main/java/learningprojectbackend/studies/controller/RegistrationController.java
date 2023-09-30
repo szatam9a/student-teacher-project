@@ -1,6 +1,7 @@
 package learningprojectbackend.studies.controller;
 
 import jakarta.validation.Valid;
+import learningprojectbackend.auth.service.CaptchaService;
 import learningprojectbackend.studies.controller.user.RegistrationRequest;
 import learningprojectbackend.studies.controller.user.UserDto;
 import learningprojectbackend.studies.service.UserService;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class RegistrationController {
     private final UserService userService;
+    private final CaptchaService captchaService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto registeringNewUser(@RequestBody @Valid RegistrationRequest userRegistrationDto) {
+        System.out.println(captchaService.validateToken(userRegistrationDto.getEmail()).getSuccess()); // TODO handle failure
         return this.userService.register(userRegistrationDto);
     }
 }
