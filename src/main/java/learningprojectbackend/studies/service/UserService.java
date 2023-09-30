@@ -22,17 +22,13 @@ public class UserService {
 
     @PostConstruct
     void init() {
-        User userToRegsiter = new User();
-        userToRegsiter.setNickname("admin");
-        userToRegsiter.setPassword("admin");
-        userToRegsiter.setEmail("smithy@admin.com");
-        userToRegsiter.setFirstName("Tom");
-        userToRegsiter.setLastName("Smith");
-        register(userToRegsiter);
-    }
-
-    public User findUserById(Long id) {
-        return findUserIfPresent(id);
+        User userToRegister = new User();
+        userToRegister.setNickname("admin");
+        userToRegister.setPassword("admin");
+        userToRegister.setEmail("smithy@admin.com");
+        userToRegister.setFirstName("Tom");
+        userToRegister.setLastName("Smith");
+        register(userToRegister);
     }
 
     public User getUserById(Long id) {

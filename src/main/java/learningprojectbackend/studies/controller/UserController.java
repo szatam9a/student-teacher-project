@@ -23,7 +23,7 @@ public class UserController {
     @GetMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public UserDto findUsersAllData(@PathVariable Long userId) {
-        return mapper.toUserDto(userService.findUserById(userId));
+        return mapper.toUserDto(userService.getUserById(userId));
     }
 
     @GetMapping()
