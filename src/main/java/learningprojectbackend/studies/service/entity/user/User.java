@@ -49,15 +49,18 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Tag> tagList;
 
-    public User addExercise(Exercise exercise) {
+    public void addExercise(Exercise exercise) {
         exerciseList.add(exercise);
         exercise.setUser(this);
-        return this;
     }
 
-    public User addTag(Tag tag) {
+    public void addTag(Tag tag) {
         tagList.add(tag);
         tag.setUser(this);
-        return this;
+    }
+
+    public void AddCourse(Course course) {
+        courseList.add(course);
+        course.setUser(this);
     }
 }
