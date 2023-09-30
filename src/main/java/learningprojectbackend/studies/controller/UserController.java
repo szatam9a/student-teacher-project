@@ -5,6 +5,7 @@ import learningprojectbackend.auth.exception.EmailAddressIsTakenException;
 import learningprojectbackend.studies.controller.user.RegistrationRequest;
 import learningprojectbackend.studies.controller.user.UpdateUserPasswordRequest;
 import learningprojectbackend.studies.controller.user.UserDto;
+import learningprojectbackend.studies.model.ModelMapper;
 import learningprojectbackend.studies.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,23 +18,24 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final ModelMapper mapper;
 
     @GetMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public UserDto findUsersAllData(@PathVariable Long userId) {
-        return userService.findUserById(userId);
+        return mapper.toUserDto(userService.findUserById(userId));
     }
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public List<UserDto> findAllUser() {
-        return userService.findAllUser();
+        return mapper.toUserDto(userService.findAllUser());
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto createNewUser(@RequestBody @Valid RegistrationRequest registrationRequest) throws EmailAddressIsTakenException {
-        return userService.register(registrationRequest);
+        return mapper.toUserDto(userService.register(mapper.toUser(registrationRequest)));
     }
 
     @PatchMapping("/{userId}/password")
