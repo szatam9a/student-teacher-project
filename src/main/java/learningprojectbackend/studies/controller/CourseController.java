@@ -3,6 +3,7 @@ package learningprojectbackend.studies.controller;
 import learningprojectbackend.studies.controller.course.CourseDto;
 import learningprojectbackend.studies.controller.course.CreateCourseRequest;
 import learningprojectbackend.studies.controller.course.PaginationRequest;
+import learningprojectbackend.studies.controller.course.UpdateCourseRequest;
 import learningprojectbackend.studies.model.ModelMapper;
 import learningprojectbackend.studies.service.CourseService;
 import learningprojectbackend.studies.service.LessonService;
@@ -19,11 +20,11 @@ public class CourseController {
     private final LessonService lessonService;
     private final ModelMapper mapper;
 
-//    @GetMapping("/{id}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public CourseDto getCourseById(@PathVariable Long id) {
-//        return mapper.toCourseDto(courseService.getCourseById(id));
-//    }
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public CourseDto getCourseById(@PathVariable Long id) {
+        return mapper.toCourseDto(courseService.getCourseById(id));
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -37,4 +38,9 @@ public class CourseController {
         return courseService.getPagedCourses(paginationRequest).map(mapper::toCourseDto);
     }
 
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public CourseDto updateCourse(@RequestBody UpdateCourseRequest updateCourseRequest, @PathVariable("id") Long courseId) {
+        return mapper.toCourseDto(courseService.updateCourse(updateCourseRequest, courseId));
+    }
 }
