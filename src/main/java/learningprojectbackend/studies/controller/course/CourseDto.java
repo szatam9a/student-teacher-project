@@ -1,7 +1,6 @@
 package learningprojectbackend.studies.controller.course;
 
-import learningprojectbackend.studies.service.entity.course.Lesson;
-import learningprojectbackend.studies.service.entity.tag.Tag;
+import learningprojectbackend.studies.controller.tag.TagDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +12,7 @@ import java.util.List;
 public class CourseDto {
     private Long id;
     private String title;
-    private List<Lesson> lessons = new LinkedList<>();
-    private List<Tag> tags = new LinkedList<>();
+    private List<LessonDto> lessons = new LinkedList<>();
+    private List<TagDto> tags = new LinkedList<>();
 
 }

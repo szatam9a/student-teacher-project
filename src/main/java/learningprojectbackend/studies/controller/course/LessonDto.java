@@ -1,7 +1,7 @@
 package learningprojectbackend.studies.controller.course;
 
-import learningprojectbackend.studies.service.entity.studerial.Studerial;
-import learningprojectbackend.studies.service.entity.tag.Tag;
+import learningprojectbackend.studies.controller.studerial.StuderialDto;
+import learningprojectbackend.studies.controller.tag.TagDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +13,6 @@ import java.util.List;
 public class LessonDto {
     private Long id;
     private String title;
-    private List<Studerial> studerials = new LinkedList<>();
-    private List<Tag> tags = new LinkedList<>();
+    private List<StuderialDto> studerials = new LinkedList<>();
+    private List<TagDto> tags = new LinkedList<>();
 }
