@@ -64,8 +64,8 @@ public class TagService {
     }
 
     private void checkOwnership(Tag tag) {
-        boolean isUserAuthorizedToModifyTag = getUser().getId().equals(tag.getUser().getId());
-        if (!isUserAuthorizedToModifyTag) {
+        boolean isUserAuthorizedToAccessTag = getUser().getId().equals(tag.getUser().getId());
+        if (!isUserAuthorizedToAccessTag) {
             throw new NoAuthorizationToAccessResourcesException("No Authorization to retrieve tag with id: " + tag.getId());
         }
     }
