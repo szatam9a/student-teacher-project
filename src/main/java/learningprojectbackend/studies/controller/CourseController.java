@@ -19,6 +19,12 @@ public class CourseController {
     private final LessonService lessonService;
     private final ModelMapper mapper;
 
+//    @GetMapping("/{id}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public CourseDto getCourseById(@PathVariable Long id) {
+//        return mapper.toCourseDto(courseService.getCourseById(id));
+//    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CourseDto createCourser(@RequestBody CreateCourseRequest createCourseRequest) {

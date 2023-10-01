@@ -34,4 +34,8 @@ public class CourseService {
         Page<Course> course = courseRepository.findAll(pageable);
         return course;
     }
+
+//    public Course getCourseById(Long id) {
+//        courseRepository.findById(id);
+//    }
 }

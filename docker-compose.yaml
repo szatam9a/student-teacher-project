@@ -16,17 +16,19 @@ services:
     ports:
       - "3306:3306"
 
-  spring-app:
+  backend:
+    image: szatam9a/studi:std
+    #  spring-app:
     #    networks:
     #      - mynetwork
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: seikai-backend
+    #    build:
+    #      context: .
+    #      dockerfile: Dockerfile
+    #    container_name: seikai-backend
     depends_on:
       - mariadb
     ports:
-      - "8080:8080"
+      - 9504:8080
     environment:
       SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/seikai
       SPRING_DATASOURCE_USERNAME: master
