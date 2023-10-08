@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Filter {
+public class FilterRequestDetails {
     private String filterOn;
     private String filterType;
     private String filter;
