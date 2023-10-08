@@ -14,6 +14,6 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
 
 
     @Query("select t from Tag t where t.id in :ids and t.user.id = :userId")
+//    @EntityGraph(attributePaths = {"courses", "lessons"})
     List<Tag> findAllByIdInAndUserId(@Param("ids") List<Long> ids, @Param("userId") Long userId);
-
 }

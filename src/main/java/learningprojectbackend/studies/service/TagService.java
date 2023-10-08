@@ -64,7 +64,7 @@ public class TagService {
     }
 
     private void checkOwnership(Tag tag) {
-        boolean isUserAuthorizedToAccessTag = getUser().getId().equals(tag.getUser().getId());
+        boolean isUserAuthorizedToAccessTag = getUserId().equals(tag.getUser().getId());
         if (!isUserAuthorizedToAccessTag) {
             throw new NoAuthorizationToAccessResourcesException("No Authorization to retrieve tag with id: " + tag.getId());
         }
@@ -76,5 +76,9 @@ public class TagService {
 
     private User getUser() {
         return userService.getUserById(jwtTokenDetailsService.getUserIdFromJWTToken());
+    }
+
+    private Long getUserId() {
+        return jwtTokenDetailsService.getUserIdFromJWTToken();
     }
 }

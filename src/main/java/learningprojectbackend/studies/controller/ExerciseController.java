@@ -6,6 +6,7 @@ import learningprojectbackend.studies.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -16,7 +17,7 @@ public class ExerciseController {
 
     @GetMapping
     public List<ExerciseDto> getAllExercise() {
-        return exerciseService.getAllExercise();
+        return new LinkedList<>(exerciseService.getAllExercise());
     }
 
     @GetMapping("/{id}")

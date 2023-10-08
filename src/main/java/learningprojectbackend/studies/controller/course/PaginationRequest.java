@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public class PaginationRequest {
-    private Filter filters;
+    private FilterRequestDetails filters;
     private int pageNumber;
     private int pageSize;
-    private String sort;
+    private SortRequestDetails sortRequestDetails;
 }

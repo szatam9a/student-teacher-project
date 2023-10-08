@@ -17,8 +17,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -33,8 +33,8 @@ public class ExerciseService {
         return mapper.toExerciseDto(retrieveExercise(id));
     }
 
-    public List<ExerciseDto> getAllExercise() {
-        return mapper.toExerciseDto(userService.getUserById(jwtTokenDetailsService.getUserIdFromJWTToken()).getExerciseList());
+    public Set<ExerciseDto> getAllExercise() {
+        return mapper.toExerciseDto(userService.getUserById(jwtTokenDetailsService.getUserIdFromJWTToken()).getExercises());
     }
 
     @Transactional
@@ -61,7 +61,7 @@ public class ExerciseService {
     @PostConstruct
     private void makeDefaultExercise() {
         User user = new User();
-        user.setExerciseList(new LinkedList<>());
+        user.setExercises(new HashSet<>());
         Exercise exercise = new Exercise();
         user.addExercise(exercise);
         userRepository.save(user);

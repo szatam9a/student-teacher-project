@@ -1,9 +1,6 @@
 package learningprojectbackend.studies.controller;
 
-import learningprojectbackend.studies.controller.course.CourseDto;
-import learningprojectbackend.studies.controller.course.CreateCourseRequest;
-import learningprojectbackend.studies.controller.course.PaginationRequest;
-import learningprojectbackend.studies.controller.course.UpdateCourseRequest;
+import learningprojectbackend.studies.controller.course.*;
 import learningprojectbackend.studies.model.ModelMapper;
 import learningprojectbackend.studies.service.CourseService;
 import learningprojectbackend.studies.service.LessonService;
@@ -26,16 +23,16 @@ public class CourseController {
         return mapper.toCourseDto(courseService.getCourseById(id));
     }
 
+    @PostMapping("/filter")
+    @ResponseStatus(HttpStatus.OK)
+    public Page<CourseFilterDto> getPagedCourses(@RequestBody PaginationRequest paginationRequest) {
+        return courseService.getPagedCourses(paginationRequest).map(mapper::toCourseFilterDto);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CourseDto createCourser(@RequestBody CreateCourseRequest createCourseRequest) {
         return mapper.toCourseDto(courseService.createCourse(createCourseRequest));
-    }
-
-    @PostMapping("/filter")
-    @ResponseStatus(HttpStatus.OK)
-    public Page<CourseDto> getPagedCourses(@RequestBody PaginationRequest paginationRequest) {
-        return courseService.getPagedCourses(paginationRequest).map(mapper::toCourseDto);
     }
 
     @PutMapping("/{id}")
