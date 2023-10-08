@@ -8,5 +8,5 @@ import lombok.Setter;
 public class LessonFilterDto {
     private Long id;
     private String title;
-    private int coursesNumber;
+    private int lessonsNumber;
 }
