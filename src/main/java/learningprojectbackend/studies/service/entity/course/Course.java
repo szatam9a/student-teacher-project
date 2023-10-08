@@ -6,7 +6,8 @@ import learningprojectbackend.studies.service.entity.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -16,15 +17,45 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    @OneToMany(mappedBy = "course")
-    private List<Lesson> lessonList;
     @ManyToMany
-    @JoinTable(
-            name = "course_tags",
-            joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id")
-    )
-    private List<Tag> tagList;
+    @JoinTable(name = "course_lessons", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "lesson_id"))
+    private Set<Lesson> lessons;
+    @ManyToMany
+    @JoinTable(name = "course_tags", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private Set<Tag> tags;
     @ManyToOne
     private User user;
+
+    public void addLesson(Lesson lesson) {
+        lessons.add(lesson);
+        lesson.addCourse(this);
+    }
+
+    public void removeLesson(Lesson lesson) {
+        lessons.remove(lesson);
+        lesson.removeCourse(this);
+    }
+
+    public void addTag(Tag tag) {
+        tags.add(tag);
+        tag.addCourse(this);
+    }
+
+    public void removeTag(Tag tag) {
+        tags.remove(tag);
+        tag.removeCourse(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return Objects.equals(id, course.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
