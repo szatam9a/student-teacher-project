@@ -5,14 +5,14 @@ import learningprojectbackend.studies.controller.tag.TagDto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 public class LessonDto {
     private Long id;
     private String title;
-    private List<StuderialDto> studerials = new LinkedList<>();
-    private List<TagDto> tags = new LinkedList<>();
+    private Set<StuderialDto> studerials = new HashSet<>();
+    private Set<TagDto> tags = new HashSet<>();
 }

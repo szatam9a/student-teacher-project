@@ -7,8 +7,9 @@ import learningprojectbackend.studies.service.entity.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -21,21 +22,21 @@ public class Exercise {
     @Enumerated(EnumType.STRING)
     private ExerciseType exerciseType;
     @OneToMany(mappedBy = "exercise", cascade = CascadeType.ALL)
-    private List<Answer> answerList = new LinkedList<>();
-    @ManyToMany(mappedBy = "exerciseList")
-    private List<Studerial> studerialList;
+    private Set<Answer> answers = new HashSet<>();
+    @ManyToMany(mappedBy = "exercises")
+    private Set<Studerial> studerials;
     @ManyToMany
     @JoinTable(
             name = "exercise_tags",
             joinColumns = @JoinColumn(name = "exercise_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
-    private List<Tag> tagList;
+    private Set<Tag> tags;
     @ManyToOne
     private User user;
 
     public void addAnswer(Answer answer) {
-        answerList.add(answer);
+        answers.add(answer);
         answer.setExercise(this);
     }
 

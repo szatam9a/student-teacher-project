@@ -7,7 +7,7 @@ import learningprojectbackend.studies.service.entity.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -24,9 +24,9 @@ public class Flashcard {
             joinColumns = @JoinColumn(name = "flashcard_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
-    private List<Tag> tagList;
-    @ManyToMany(mappedBy = "flashCardList")
-    private List<Studerial> studerialList;
+    private Set<Tag> tags;
+    @ManyToMany(mappedBy = "flashcards")
+    private Set<Studerial> studerials;
     @ManyToOne
     private User user;
 }

@@ -7,7 +7,8 @@ import learningprojectbackend.studies.service.entity.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -17,17 +18,38 @@ public class Lesson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @OneToMany(mappedBy = "lesson")
+    private Set<Studerial> studerials;
+    @ManyToMany(mappedBy = "lessons")
+    private Set<Course> courses;
     @ManyToMany
     @JoinTable(
             name = "lesson_tags",
             joinColumns = @JoinColumn(name = "lesson_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
-    private List<Tag> tagList;
-    @OneToMany(mappedBy = "lesson")
-    private List<Studerial> studerialList;
-    @ManyToOne
-    private Course course;
+    private Set<Tag> tags;
     @ManyToOne
     private User user;
+
+    public void addCourse(Course course) {
+        courses.add(course);
+    }
+
+    public void removeCourse(Course course) {
+        courses.remove(course);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lesson lesson = (Lesson) o;
+        return Objects.equals(id, lesson.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

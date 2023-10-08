@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -37,30 +38,43 @@ public class User {
     private LocalDate dateOfBirth;
     private String roles;
     @OneToMany(mappedBy = "user")
-    private List<Course> courseList;
+    private Set<Course> courses;
     @OneToMany(mappedBy = "user")
-    private List<Lesson> lessonList;
+    private Set<Lesson> lessons;
     @OneToMany(mappedBy = "user")
-    private List<Studerial> studerialList;
+    private Set<Studerial> studerials;
     @OneToMany(mappedBy = "user")
-    private List<Flashcard> flashcardList;
+    private Set<Flashcard> flashcards;
     @OneToMany(mappedBy = "user")
-    private List<Exercise> exerciseList;
+    private Set<Exercise> exercises;
     @OneToMany(mappedBy = "user")
-    private List<Tag> tagList;
+    private Set<Tag> tags;
 
     public void addExercise(Exercise exercise) {
-        exerciseList.add(exercise);
+        exercises.add(exercise);
         exercise.setUser(this);
     }
 
     public void addTag(Tag tag) {
-        tagList.add(tag);
+        tags.add(tag);
         tag.setUser(this);
     }
 
-    public void AddCourse(Course course) {
-        courseList.add(course);
+    public void addCourse(Course course) {
+        courses.add(course);
         course.setUser(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

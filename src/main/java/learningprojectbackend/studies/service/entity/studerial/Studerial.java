@@ -9,7 +9,8 @@ import learningprojectbackend.studies.service.entity.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -27,21 +28,34 @@ public class Studerial {
             joinColumns = @JoinColumn(name = "studyrial_id"),
             inverseJoinColumns = @JoinColumn(name = "flashcard_id")
     )
-    private List<Flashcard> flashCardList;
+    private Set<Flashcard> flashcards;
     @ManyToMany
     @JoinTable(
             name = "studyrial_exercises",
             joinColumns = @JoinColumn(name = "studyrial_id"),
             inverseJoinColumns = @JoinColumn(name = "exercise_id")
     )
-    private List<Exercise> exerciseList;
+    private Set<Exercise> exercises;
     @ManyToMany
     @JoinTable(
             name = "studyrial_tags",
             joinColumns = @JoinColumn(name = "studyrial_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
-    private List<Tag> tagList;
+    private Set<Tag> tags;
     @ManyToOne
     private User user;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Studerial studerial = (Studerial) o;
+        return Objects.equals(id, studerial.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
