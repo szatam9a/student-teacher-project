@@ -27,4 +27,6 @@ public class RegistrationRequest {
     private Gender gender;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dateOfBirth;
+    @NotBlank(message = "are you sure you aint no robot")
+    private String recaptcha;
 }
