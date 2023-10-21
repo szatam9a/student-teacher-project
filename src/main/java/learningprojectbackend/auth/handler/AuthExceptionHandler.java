@@ -1,5 +1,9 @@
-package learningprojectbackend.auth.exception;
+package learningprojectbackend.auth.handler;
 
+import learningprojectbackend.auth.exception.EmailAddressIsTakenException;
+import learningprojectbackend.auth.exception.NoAuthorizationToAccessResourcesException;
+import learningprojectbackend.auth.exception.RecaptchaMismatchException;
+import learningprojectbackend.auth.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -10,6 +14,17 @@ import java.net.URI;
 
 @RestControllerAdvice
 public class AuthExceptionHandler {
+
+    @ExceptionHandler(RecaptchaMismatchException.class)
+    public ProblemDetail handleRecaptchaMismatchException(RecaptchaMismatchException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.BAD_REQUEST,
+                String.format("Error with token: %s", e.getToken())
+        );
+        problemDetail.setTitle("Recaptcha mismatch");
+        problemDetail.setType(URI.create("recaptcha-mismatch"));
+        return problemDetail;
+    }
 
     @ExceptionHandler(EmailAddressIsTakenException.class)
     public ProblemDetail handleUsernameIsTakenException(EmailAddressIsTakenException e) {

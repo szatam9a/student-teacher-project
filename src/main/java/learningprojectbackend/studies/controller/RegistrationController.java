@@ -1,6 +1,8 @@
 package learningprojectbackend.studies.controller;
 
 import jakarta.validation.Valid;
+import learningprojectbackend.auth.exception.RecaptchaMismatchException;
+import learningprojectbackend.auth.service.CaptchaService;
 import learningprojectbackend.studies.controller.user.RegistrationRequest;
 import learningprojectbackend.studies.controller.user.UserDto;
 import learningprojectbackend.studies.model.ModelMapper;
@@ -14,11 +16,15 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class RegistrationController {
     private final UserService userService;
+    private final CaptchaService captchaService;
     private final ModelMapper mapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto registeringNewUser(@RequestBody @Valid RegistrationRequest userRegistrationDto) {
+        if (!captchaService.validateToken(userRegistrationDto.getRecaptcha()).getSuccess()) {
+            throw new RecaptchaMismatchException(userRegistrationDto.getRecaptcha());
+        }
         return mapper.toUserDto(this.userService.register(mapper.toUser(userRegistrationDto)));
     }
 }
