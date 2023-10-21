@@ -3,10 +3,7 @@ package learningprojectbackend.studies.service;
 import jakarta.annotation.PostConstruct;
 import learningprojectbackend.auth.exception.EmailAddressIsTakenException;
 import learningprojectbackend.auth.exception.UserNotFoundException;
-import learningprojectbackend.studies.controller.user.RegistrationRequest;
 import learningprojectbackend.studies.controller.user.UpdateUserPasswordRequest;
-import learningprojectbackend.studies.controller.user.UserDto;
-import learningprojectbackend.studies.model.ModelMapper;
 import learningprojectbackend.studies.repository.UserRepository;
 import learningprojectbackend.studies.service.entity.user.User;
 import lombok.RequiredArgsConstructor;
@@ -22,45 +19,39 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final ModelMapper mapper;
 
     @PostConstruct
     void init() {
-        RegistrationRequest registrationRequest = new RegistrationRequest();
-        registrationRequest.setNickname("admin");
-        registrationRequest.setPassword("admin");
-        registrationRequest.setEmail("smithy@admin.com");
-        registrationRequest.setFirstName("Tom");
-        registrationRequest.setLastName("Smith");
-        register(registrationRequest);
-    }
-
-    public UserDto findUserById(Long id) {
-        return mapper.toUserDto(findUserIfPresent(id));
+        User userToRegister = new User();
+        userToRegister.setNickname("admin");
+        userToRegister.setPassword("admin");
+        userToRegister.setEmail("smithy@admin.com");
+        userToRegister.setFirstName("Tom");
+        userToRegister.setLastName("Smith");
+        register(userToRegister);
     }
 
     public User getUserById(Long id) {
-        return (findUserIfPresent(id));
+        return findUserIfPresent(id);
     }
 
-    public UserDto findUserByEmailAddress(String email) {
-        return mapper.toUserDto((userRepository.findByEmailIgnoreCase(email)).orElseThrow(() -> new UserNotFoundException(email)));
+    public User findUserByEmailAddress(String email) {
+        return ((userRepository.findByEmailIgnoreCase(email)).orElseThrow(() -> new UserNotFoundException(email)));
     }
 
     public User findUserToAddExercise(Long id) {
         return getUser(userRepository.findByIdWithExercise(id), id);
     }
 
-    public List<UserDto> findAllUser() {
-        return mapper.toUserDto(userRepository.findAll());
+    public List<User> findAllUser() {
+        return userRepository.findAll();
     }
 
-    public UserDto register(RegistrationRequest registrationRequest) throws EmailAddressIsTakenException {
-        isEmailAvailable(registrationRequest.getEmail());
-        User userToRegistering = mapper.toUser(registrationRequest);
-        userToRegistering.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
+    public User register(User userToRegistering) throws EmailAddressIsTakenException {
+        isEmailAvailable(userToRegistering.getEmail());
+        userToRegistering.setPassword(passwordEncoder.encode(userToRegistering.getPassword()));
         userToRegistering.setRoles("ROLE_USER");
-        return mapper.toUserDto(userRepository.save(userToRegistering));
+        return userRepository.save(userToRegistering);
     }
 
     @Transactional

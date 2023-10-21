@@ -5,6 +5,7 @@ import learningprojectbackend.auth.exception.RecaptchaMismatchException;
 import learningprojectbackend.auth.service.CaptchaService;
 import learningprojectbackend.studies.controller.user.RegistrationRequest;
 import learningprojectbackend.studies.controller.user.UserDto;
+import learningprojectbackend.studies.model.ModelMapper;
 import learningprojectbackend.studies.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class RegistrationController {
     private final UserService userService;
     private final CaptchaService captchaService;
+    private final ModelMapper mapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -23,6 +25,6 @@ public class RegistrationController {
         if (!captchaService.validateToken(userRegistrationDto.getRecaptcha()).getSuccess()) {
             throw new RecaptchaMismatchException(userRegistrationDto.getRecaptcha());
         }
-        return this.userService.register(userRegistrationDto);
+        return mapper.toUserDto(this.userService.register(mapper.toUser(userRegistrationDto)));
     }
 }
