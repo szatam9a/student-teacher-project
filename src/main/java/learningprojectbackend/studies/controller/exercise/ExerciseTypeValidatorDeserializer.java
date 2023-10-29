@@ -1,6 +1,5 @@
 package learningprojectbackend.studies.controller.exercise;
 
-import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -13,12 +12,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import java.io.IOException;
-
 public class ExerciseTypeValidatorDeserializer extends JsonDeserializer<ExerciseType> {
     @Override
     @SneakyThrows
-    public ExerciseType deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
+    public ExerciseType deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) {
         String value = jsonParser.getValueAsString();
         for (ExerciseType exerciseType : (ExerciseType.values())) {
             if (exerciseType.getValue().equals(value)) {
