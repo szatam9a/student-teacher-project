@@ -2,9 +2,11 @@ package learningprojectbackend.studies.controller;
 
 import learningprojectbackend.studies.controller.exercise.CreateExerciseRequest;
 import learningprojectbackend.studies.controller.exercise.ExerciseDto;
+import learningprojectbackend.studies.controller.exercise.PaginationRequest;
 import learningprojectbackend.studies.model.ModelMapper;
 import learningprojectbackend.studies.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +27,12 @@ public class ExerciseController {
 
     @GetMapping
     public List<ExerciseDto> getAllExercise() {
-        return null; // TODO: 29/10/2023
+        return mapper.toExerciseDto(exerciseService.getAllExercise());
+    }
+
+    @PostMapping("/filter")
+    public Page<ExerciseDto> getAllFiltered(@RequestBody PaginationRequest paginationRequest) {
+        return mapper.toExerciseDto(exerciseService.getAllFiltered(paginationRequest));
     }
 
     @PostMapping

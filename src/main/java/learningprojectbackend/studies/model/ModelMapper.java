@@ -18,6 +18,7 @@ import learningprojectbackend.studies.service.entity.exercise.Exercise;
 import learningprojectbackend.studies.service.entity.tag.Tag;
 import learningprojectbackend.studies.service.entity.user.User;
 import org.mapstruct.Mapper;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -56,4 +57,6 @@ public interface ModelMapper {
     AnswerIdDto toAnswerIdDto(Answer answer);
 
     List<AnswerDto> toAnswerDto(List<Answer> answerList);
+
+    Page<ExerciseDto> toExerciseDto(Page<Exercise> allFiltered);
 }

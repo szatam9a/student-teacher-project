@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import learningprojectbackend.auth.exception.NoAuthorizationToAccessResourcesException;
 import learningprojectbackend.auth.service.JwtTokenDetailsService;
 import learningprojectbackend.studies.controller.exercise.CreateExerciseRequest;
+import learningprojectbackend.studies.controller.exercise.PaginationRequest;
 import learningprojectbackend.studies.exception.AnswerTypeMismatch;
 import learningprojectbackend.studies.exception.ExerciseNotFoundException;
 import learningprojectbackend.studies.model.ModelMapper;
@@ -14,6 +15,10 @@ import learningprojectbackend.studies.service.entity.exercise.Exercise;
 import learningprojectbackend.studies.service.entity.exercise.ExerciseType;
 import learningprojectbackend.studies.service.entity.user.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,7 +55,7 @@ public class ExerciseService {
     }
 
     public List<Exercise> getAllExercise() {
-        return userService.getUserById(jwtTokenDetailsService.getUserIdFromJWTToken()).getExerciseList();
+        return userService.getUserByIdWithExercises(userService.getCurrentUserId()).getExerciseList();
     }
 
     @Transactional
@@ -118,5 +123,16 @@ public class ExerciseService {
                 throw new AnswerTypeMismatch("details todo");
             }
         }
+    }
+
+    public Page<Exercise> getAllFiltered(PaginationRequest paginationRequest) {
+        Pageable pageable = PageRequest.of(paginationRequest.getPageNumber(), paginationRequest.getPageSize());
+        Specification<Exercise> searchSpecification;
+        searchSpecification = (root, query, criteriaBuilder) ->
+                criteriaBuilder.equal(
+                        root.get(paginationRequest.getFilter().getFilterOn()),
+                        paginationRequest.getFilter().getFilter()
+                );
+        return exerciseRepository.findAll(searchSpecification, pageable);
     }
 }
