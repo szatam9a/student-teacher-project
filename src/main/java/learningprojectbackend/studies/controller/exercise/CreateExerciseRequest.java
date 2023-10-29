@@ -15,10 +15,12 @@ public class CreateExerciseRequest {
     @NotBlank(message = "title cant be empty")
     private String title;
     private String description;
+    private String leftCategory;
+    private String rightCategory;
+    private String task;
+    private String question;
     @NotBlank(message = "exercise type cant be empty")
     @JsonDeserialize(using = ExerciseTypeValidatorDeserializer.class)
     private ExerciseType exerciseType;
-    private String task;
-    private String question;
     private List<Answer> answers;
 }

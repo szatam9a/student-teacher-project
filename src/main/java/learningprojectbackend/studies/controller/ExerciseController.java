@@ -2,6 +2,7 @@ package learningprojectbackend.studies.controller;
 
 import learningprojectbackend.studies.controller.exercise.CreateExerciseRequest;
 import learningprojectbackend.studies.controller.exercise.ExerciseDto;
+import learningprojectbackend.studies.controller.exercise.ExerciseFilterDto;
 import learningprojectbackend.studies.controller.exercise.PaginationRequest;
 import learningprojectbackend.studies.model.ModelMapper;
 import learningprojectbackend.studies.service.ExerciseService;
@@ -31,8 +32,8 @@ public class ExerciseController {
     }
 
     @PostMapping("/filter")
-    public Page<ExerciseDto> getAllFiltered(@RequestBody PaginationRequest paginationRequest) {
-        return mapper.toExerciseDto(exerciseService.getAllFiltered(paginationRequest));
+    public Page<ExerciseFilterDto> getAllFiltered(@RequestBody PaginationRequest paginationRequest) {
+        return exerciseService.getAllFiltered(paginationRequest).map(mapper::toExerciseFilterDto);
     }
 
     @PostMapping

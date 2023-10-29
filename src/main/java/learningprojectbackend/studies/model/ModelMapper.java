@@ -3,10 +3,7 @@ package learningprojectbackend.studies.model;
 
 import learningprojectbackend.studies.controller.course.CourseDto;
 import learningprojectbackend.studies.controller.course.LessonDto;
-import learningprojectbackend.studies.controller.exercise.AnswerDto;
-import learningprojectbackend.studies.controller.exercise.AnswerIdDto;
-import learningprojectbackend.studies.controller.exercise.CreateExerciseRequest;
-import learningprojectbackend.studies.controller.exercise.ExerciseDto;
+import learningprojectbackend.studies.controller.exercise.*;
 import learningprojectbackend.studies.controller.tag.CreateTagRequest;
 import learningprojectbackend.studies.controller.tag.TagDto;
 import learningprojectbackend.studies.controller.user.RegistrationRequest;
@@ -18,7 +15,6 @@ import learningprojectbackend.studies.service.entity.exercise.Exercise;
 import learningprojectbackend.studies.service.entity.tag.Tag;
 import learningprojectbackend.studies.service.entity.user.User;
 import org.mapstruct.Mapper;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -58,5 +54,5 @@ public interface ModelMapper {
 
     List<AnswerDto> toAnswerDto(List<Answer> answerList);
 
-    Page<ExerciseDto> toExerciseDto(Page<Exercise> allFiltered);
+    ExerciseFilterDto toExerciseFilterDto(Exercise exercise);
 }
