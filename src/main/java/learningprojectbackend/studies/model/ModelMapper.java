@@ -15,6 +15,7 @@ import learningprojectbackend.studies.service.entity.exercise.Exercise;
 import learningprojectbackend.studies.service.entity.tag.Tag;
 import learningprojectbackend.studies.service.entity.user.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
@@ -55,4 +56,8 @@ public interface ModelMapper {
     List<AnswerDto> toAnswerDto(List<Answer> answerList);
 
     ExerciseFilterDto toExerciseFilterDto(Exercise exercise);
+
+    void toExercise(@MappingTarget Exercise exercise, UpdateExerciseRequest updateExerciseRequest);
+
+
 }

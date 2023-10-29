@@ -6,6 +6,7 @@ import learningprojectbackend.auth.exception.NoAuthorizationToAccessResourcesExc
 import learningprojectbackend.auth.service.JwtTokenDetailsService;
 import learningprojectbackend.studies.controller.exercise.CreateExerciseRequest;
 import learningprojectbackend.studies.controller.exercise.PaginationRequest;
+import learningprojectbackend.studies.controller.exercise.UpdateExerciseRequest;
 import learningprojectbackend.studies.exception.AnswerTypeMismatch;
 import learningprojectbackend.studies.exception.ExerciseNotFoundException;
 import learningprojectbackend.studies.model.ModelMapper;
@@ -63,13 +64,8 @@ public class ExerciseService {
         Pageable pageable = PageRequest.of(paginationRequest.getPageNumber(), paginationRequest.getPageSize());
         Specification<Exercise> searchSpecification = (root, query, criteriaBuilder) -> {
 
-            Predicate paginationFilter = criteriaBuilder.like(
-                    root.get(paginationRequest.getFilter().getFilterOn()), "%" +
-                            paginationRequest.getFilter().getFilter() + "%"
-            );
-            Predicate userIdFilter = criteriaBuilder.equal(
-                    root.get("user").get("id"), userService.getCurrentUserId()
-            );
+            Predicate paginationFilter = criteriaBuilder.like(root.get(paginationRequest.getFilter().getFilterOn()), "%" + paginationRequest.getFilter().getFilter() + "%");
+            Predicate userIdFilter = criteriaBuilder.equal(root.get("user").get("id"), userService.getCurrentUserId());
             return criteriaBuilder.and(paginationFilter, userIdFilter);
         };
         return exerciseRepository.findAll(searchSpecification, pageable);
@@ -81,7 +77,16 @@ public class ExerciseService {
         User owner = userService.findUserToAddExercise(jwtTokenDetailsService.getUserIdFromJWTToken());
         Exercise toSave = exerciseRepository.save(mapper.toExercise(createExerciseRequest));
         owner.addExercise(toSave);
+        toSave.setOwner();
         return toSave;
+    }
+
+    @Transactional
+    public void updateExercise(Long id, UpdateExerciseRequest updateExerciseRequest) {
+        Exercise exerciseToUpdate = getExerciseById(id);
+        mapper.toExercise(exerciseToUpdate, updateExerciseRequest);
+        exerciseToUpdate.setOwner();
+        exerciseRepository.save(exerciseToUpdate);
     }
 
 
@@ -112,10 +117,7 @@ public class ExerciseService {
 
     private void validateMatch(List<Answer> answers) {
         for (Answer answer : answers) {
-            boolean condition = answer.getLeftPair() == null ||
-                    answer.getLeftPair().isBlank() ||
-                    answer.getRightPair() == null ||
-                    answer.getRightPair().isBlank();
+            boolean condition = answer.getLeftPair() == null || answer.getLeftPair().isBlank() || answer.getRightPair() == null || answer.getRightPair().isBlank();
             if (condition) {
                 throw new AnswerTypeMismatch("details todo");
             }
@@ -124,8 +126,7 @@ public class ExerciseService {
 
     private void validateFind(List<Answer> answers) {
         for (Answer answer : answers) {
-            boolean condition = answer.getAnswer() == null ||
-                    answer.getAnswer().isBlank();
+            boolean condition = answer.getAnswer() == null || answer.getAnswer().isBlank();
             if (condition) {
                 throw new AnswerTypeMismatch("details todo");
             }
@@ -134,8 +135,7 @@ public class ExerciseService {
 
     private void validateOrder(List<Answer> answers) {
         for (Answer answer : answers) {
-            boolean condition = answer.getAnswer() == null ||
-                    answer.getAnswer().isBlank();
+            boolean condition = answer.getAnswer() == null || answer.getAnswer().isBlank();
             if (condition) {
                 throw new AnswerTypeMismatch("details todo");
             }

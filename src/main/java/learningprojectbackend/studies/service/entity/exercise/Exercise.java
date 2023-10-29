@@ -44,6 +44,12 @@ public class Exercise {
         answer.setExercise(this);
     }
 
+    public void setOwner() {
+        for (Answer answer : answers) {
+            answer.setExercise(this);
+        }
+    }
+
     public void addAnswer(List<Answer> answerList) {
         answerList.forEach((this::addAnswer));
     }
