@@ -13,8 +13,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmailIgnoreCase(String email);
 
     @Query("select u from User u left join fetch u.exerciseList where u.id = :userId")
-    Optional<User> findByIdWithExercise(Long userId);
+    User findByIdWithExercises(Long userId);
 
     @Query("select u from User u left join fetch u.tagList where u.id = :userId")
-    User findByIdWithTag(Long userId);
+    User findByIdWithTags(Long userId);
 }

@@ -65,15 +65,19 @@ public class ExerciseService {
 
     private Exercise retrieveExercise(Long id) {
         Exercise exerciseToRetrieve = findExerciseById(id);
-        if (userService.getUserById(jwtTokenDetailsService.getUserIdFromJWTToken()).getId().equals(exerciseToRetrieve.getUser().getId())) {
-            return exerciseToRetrieve;
-        } else {
-            throw new NoAuthorizationToAccessResourcesException("No Authorization to retrieve exercise with id: " + exerciseToRetrieve.getId());
-        }
+        checkOwnership(exerciseToRetrieve);
+        return exerciseToRetrieve;
     }
 
     private Exercise findExerciseById(Long id) {
         return exerciseRepository.findById(id).orElseThrow(() -> new ExerciseNotFoundException(id));
+    }
+
+    private void checkOwnership(Exercise exercise) {
+        boolean isUserAuthorizedToAccessCourse = userService.getCurrentUserId().equals(exercise.getUser().getId());
+        if (!isUserAuthorizedToAccessCourse) {
+            throw new NoAuthorizationToAccessResourcesException("No Authorization to retrieve course with id: " + exercise.getId());
+        }
     }
 
     private void validateAnswersByType(List<Answer> answers, ExerciseType exerciseType) {

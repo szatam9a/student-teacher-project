@@ -17,14 +17,15 @@ public class ExerciseController {
     private final ExerciseService exerciseService;
     private final ModelMapper mapper;
 
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ExerciseDto getExerciseById(@PathVariable("id") Long id) {
+        return mapper.toExerciseDto(exerciseService.getExerciseById(id));
+    }
+
     @GetMapping
     public List<ExerciseDto> getAllExercise() {
         return null; // TODO: 29/10/2023
-    }
-
-    @GetMapping("/{id}")
-    public ExerciseDto getExerciseById(@PathVariable("id") Long id) {
-        return mapper.toExerciseDto(exerciseService.getExerciseById(id));
     }
 
     @PostMapping
