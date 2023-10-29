@@ -17,7 +17,7 @@ public class StudiesExceptionHandler {
     public ProblemDetail handleTagNotFoundException(TagNotFoundException e) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.NOT_FOUND,
-                String.format("Tag not found with id: %D", e.getId())
+                String.format("Tag not found with id: %d", e.getId())
         );
         problemDetail.setTitle("Tag not found");
         problemDetail.setType(URI.create("tag-not-found"));
