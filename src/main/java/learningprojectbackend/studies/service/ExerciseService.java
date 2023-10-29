@@ -4,7 +4,7 @@ import jakarta.annotation.PostConstruct;
 import learningprojectbackend.auth.exception.NoAuthorizationToAccessResourcesException;
 import learningprojectbackend.auth.service.JwtTokenDetailsService;
 import learningprojectbackend.studies.controller.exercise.CreateExerciseRequest;
-import learningprojectbackend.studies.controller.exercise.ExerciseDto;
+import learningprojectbackend.studies.exception.AnswerTypeMismatch;
 import learningprojectbackend.studies.exception.ExerciseNotFoundException;
 import learningprojectbackend.studies.model.ModelMapper;
 import learningprojectbackend.studies.repository.ExerciseRepository;
@@ -26,24 +26,42 @@ public class ExerciseService {
     private final UserService userService;
     private final ExerciseRepository exerciseRepository;
     private final JwtTokenDetailsService jwtTokenDetailsService;
-    private final ModelMapper mapper;
     private final UserRepository userRepository;
+    private final ModelMapper mapper;
 
-    public ExerciseDto getExerciseById(Long id) {
-        return mapper.toExerciseDto(retrieveExercise(id));
+    @PostConstruct
+    private void makeDefaultExercise() {
+        User user = new User();
+        user.setExerciseList(new LinkedList<>());
+        Exercise exercise = new Exercise();
+        user.addExercise(exercise);
+        userRepository.save(user);
+        exercise.setExerciseType(ExerciseType.MATCH);
+        exercise.setTitle("match");
+        Answer matchPairExerciseAnswer = new Answer();
+        matchPairExerciseAnswer.setLeftPair("joke");
+        matchPairExerciseAnswer.setRightPair("ekoj");
+        exercise.addAnswer(matchPairExerciseAnswer);
+        exerciseRepository.save(exercise);
     }
 
-    public List<ExerciseDto> getAllExercise() {
-        return mapper.toExerciseDto(userService.getUserById(jwtTokenDetailsService.getUserIdFromJWTToken()).getExerciseList());
+    public Exercise getExerciseById(Long id) {
+        return retrieveExercise(id);
+    }
+
+    public List<Exercise> getAllExercise() {
+        return userService.getUserById(jwtTokenDetailsService.getUserIdFromJWTToken()).getExerciseList();
     }
 
     @Transactional
-    public ExerciseDto createExercise(CreateExerciseRequest createExerciseRequest) {
+    public Exercise createExercise(CreateExerciseRequest createExerciseRequest) {
+        validateAnswersByType(createExerciseRequest.getAnswers(), createExerciseRequest.getExerciseType());
         User owner = userService.findUserToAddExercise(jwtTokenDetailsService.getUserIdFromJWTToken());
         Exercise toSave = exerciseRepository.save(mapper.toExercise(createExerciseRequest));
         owner.addExercise(toSave);
-        return mapper.toExerciseDto(toSave);
+        return toSave;
     }
+
 
     private Exercise retrieveExercise(Long id) {
         Exercise exerciseToRetrieve = findExerciseById(id);
@@ -58,19 +76,43 @@ public class ExerciseService {
         return exerciseRepository.findById(id).orElseThrow(() -> new ExerciseNotFoundException(id));
     }
 
-    @PostConstruct
-    private void makeDefaultExercise() {
-        User user = new User();
-        user.setExerciseList(new LinkedList<>());
-        Exercise exercise = new Exercise();
-        user.addExercise(exercise);
-        userRepository.save(user);
-        exercise.setExerciseType(ExerciseType.match);
-        exercise.setTitle("match");
-        Answer matchPairExerciseAnswer = new Answer();
-        matchPairExerciseAnswer.setLeftPair("joke");
-        matchPairExerciseAnswer.setRightPair("ekoj");
-        exercise.addAnswer(matchPairExerciseAnswer);
-        exerciseRepository.save(exercise);
+    private void validateAnswersByType(List<Answer> answers, ExerciseType exerciseType) {
+        switch (exerciseType.getValue()) {
+            case "MATCH" -> validateMatch(answers);
+            case "FIND" -> validateFind(answers);
+            case "ORDER" -> validateOrder(answers);
+        }
+    }
+
+    private void validateMatch(List<Answer> answers) {
+        for (Answer answer : answers) {
+            boolean condition = answer.getLeftPair() == null ||
+                    answer.getLeftPair().isBlank() ||
+                    answer.getRightPair() == null ||
+                    answer.getRightPair().isBlank();
+            if (condition) {
+                throw new AnswerTypeMismatch("details todo");
+            }
+        }
+    }
+
+    private void validateFind(List<Answer> answers) {
+        for (Answer answer : answers) {
+            boolean condition = answer.getAnswer() == null ||
+                    answer.getAnswer().isBlank();
+            if (condition) {
+                throw new AnswerTypeMismatch("details todo");
+            }
+        }
+    }
+
+    private void validateOrder(List<Answer> answers) {
+        for (Answer answer : answers) {
+            boolean condition = answer.getAnswer() == null ||
+                    answer.getAnswer().isBlank();
+            if (condition) {
+                throw new AnswerTypeMismatch("details todo");
+            }
+        }
     }
 }

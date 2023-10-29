@@ -2,8 +2,10 @@ package learningprojectbackend.studies.controller;
 
 import learningprojectbackend.studies.controller.exercise.CreateExerciseRequest;
 import learningprojectbackend.studies.controller.exercise.ExerciseDto;
+import learningprojectbackend.studies.model.ModelMapper;
 import learningprojectbackend.studies.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,19 +15,21 @@ import java.util.List;
 @RequestMapping("/exercise")
 public class ExerciseController {
     private final ExerciseService exerciseService;
+    private final ModelMapper mapper;
 
     @GetMapping
     public List<ExerciseDto> getAllExercise() {
-        return exerciseService.getAllExercise();
+        return null; // TODO: 29/10/2023
     }
 
     @GetMapping("/{id}")
     public ExerciseDto getExerciseById(@PathVariable("id") Long id) {
-        return exerciseService.getExerciseById(id);
+        return mapper.toExerciseDto(exerciseService.getExerciseById(id));
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ExerciseDto createExercise(@RequestBody CreateExerciseRequest createExerciseRequest) {
-        return exerciseService.createExercise(createExerciseRequest);
+        return mapper.toExerciseDto(exerciseService.createExercise(createExerciseRequest));
     }
 }

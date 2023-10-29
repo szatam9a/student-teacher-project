@@ -12,7 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
-public class GenderValidateDeserializer extends JsonDeserializer<Gender> {
+public class GenderValidatorDeserializer extends JsonDeserializer<Gender> {
 
     @SneakyThrows
     @Override
@@ -25,7 +25,7 @@ public class GenderValidateDeserializer extends JsonDeserializer<Gender> {
         }
         BindingResult bindingResult = new BeanPropertyBindingResult(
                 Gender.class, "genderClass");
-        bindingResult.addError(new FieldError("gender", "gender", "gender invalid"));
+        bindingResult.addError(new FieldError("gender", "gender", "gender invalid:" + value));
         MethodParameter methodParameter = new MethodParameter(UserController.class.getMethod("createNewUser", RegistrationRequest.class), 0);
         throw new MethodArgumentNotValidException(methodParameter, bindingResult);
     }

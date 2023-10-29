@@ -23,7 +23,7 @@ public class RegistrationRequest {
     private String firstName;
     @NotBlank(message = "last name cant be empty")
     private String lastName;
-    @JsonDeserialize(using = GenderValidateDeserializer.class)
+    @JsonDeserialize(using = GenderValidatorDeserializer.class)
     private Gender gender;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dateOfBirth;

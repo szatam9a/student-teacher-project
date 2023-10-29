@@ -18,12 +18,17 @@ public class Exercise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    private String description;
+    private String leftCategory;
+    private String rightCategory;
+    private String task;
+    private String question;
     @Enumerated(EnumType.STRING)
     private ExerciseType exerciseType;
-    @OneToMany(mappedBy = "exercise", cascade = CascadeType.ALL)
-    private List<Answer> answerList = new LinkedList<>();
+    @OneToMany(mappedBy = "exercise", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Answer> answers = new LinkedList<>();
     @ManyToMany(mappedBy = "exerciseList")
-    private List<Studerial> studerialList;
+    private List<Studerial> studerials;
     @ManyToMany
     @JoinTable(
             name = "exercise_tags",
@@ -35,7 +40,7 @@ public class Exercise {
     private User user;
 
     public void addAnswer(Answer answer) {
-        answerList.add(answer);
+        answers.add(answer);
         answer.setExercise(this);
     }
 
